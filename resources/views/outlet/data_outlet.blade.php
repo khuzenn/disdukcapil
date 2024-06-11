@@ -57,9 +57,12 @@
                   </tr>
                   </thead>
                   <tbody>
+                    @php
+                      $no = 1;
+                    @endphp
                     @foreach ($data as $outlet)
                       <tr class="text-center">
-                          <td scope="row">{{$outlet->id}}</td>
+                          <td scope="row">{{$no++}}</td>
                           <td>{{$outlet->name}}</td>
                           <td>{{$outlet->address}}</td>
                           <td>{{$outlet->no_telp}}</td>
@@ -72,9 +75,9 @@
                               </div>
                           </td>
                           <td>
-                              <a href="/getOutlet/{{ $outlet->id }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
+                              <a href="/get-outlet/{{ $outlet->id }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
                               <a href="#" class="btn btn-sm btn-success"><span class="fas fa-unlock-alt"></span></a>
-                              <a href="#" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
+                              <a href="/delete-outlet/{{ $outlet->id }}" class="btn btn-sm btn-danger" onclick="deleteOutlet({{ $outlet->id }})"><span class="fas fa-trash"></span></a>
                           </td>
                       </tr>
                     @endforeach
@@ -102,6 +105,16 @@
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#data-loket_wrapper .col-md-6:eq(0)');
   });
+
+  function deleteOutlet(outletId) {
+        if (confirm('Apakah Anda yakin ingin menghapus outlet ini?')) {
+            // Jika pengguna mengonfirmasi penghapusan, kirim permintaan penghapusan ke server
+            window.location.href = '/delete-outlet/' + outletId;
+        } else {
+            // Jika pengguna membatalkan penghapusan, tidak lakukan apa pun
+            return false;
+        }
+    }
 </script>
 </body>
 </html>

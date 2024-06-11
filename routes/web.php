@@ -16,7 +16,9 @@ Route::get('/data-outlet', [OutletController::class, 'index'])->name('data-outle
 
 Route::get('/create-outlet', [OutletController::class, 'create_outlet'])->name('create-outlet');
 Route::post('/addOutlet', [OutletController::class, 'addOutlet'])->name('addOutlet');
-Route::get('/getOutlet/{id}', [OutletController::class, 'getOutlet'])->name('getOutlet');
+Route::get('/get-outlet/{id}', [OutletController::class, 'getOutlet'])->name('getOutlet');
+Route::post('/update-outlet/{id}', [OutletController::class, 'updateOutlet'])->name('updateOutlet');
+Route::get('/delete-outlet/{id}', [OutletController::class, 'deleteOutlet'])->name('deleteOutlet');
 
 Route::get('/purpose', function () {
     return view('settings/purpose');

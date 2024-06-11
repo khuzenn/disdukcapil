@@ -28,7 +28,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Edit Outlet</h3>
                         </div>
-                        <form id="quickForm" action="" method="post" enctype="multipart/form-data">
+                        <form id="quickForm" action="/update-outlet/{{$data->id}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -68,7 +68,7 @@
                                 <div class="form-group row">
                                     <!-- Logo preview -->
                                     <div class="col-md-2">
-                                        <img class="img-preview img-fluid mb-3" width="100%" src="./assets/img/default-image.png">
+                                        <img class="img-preview img-fluid mb-3" width="100%" src="{{ asset('../assets/logo/' . $data->logo) }}">
                                     </div>
                                     <!-- Logo input field -->
                                     <div class="col-md-10">
@@ -105,7 +105,7 @@
         if (file) {
             reader.readAsDataURL(file);
         } else {
-            preview.src = "./assets/img/default-image.png";
+            preview.src = "{{ asset('../assets/logo/' . $data->logo) }}";
         }
     }
 </script>
