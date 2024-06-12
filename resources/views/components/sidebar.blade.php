@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="/AdminLTE/dist/img/jambi.png" alt="Disdukcapil Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Disdukcapil Jambi</span>
+      <span class="brand-text font-weight-light">Disdukcapil Merangin</span>
     </a>
 
     <!-- Sidebar -->
@@ -59,7 +59,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item @if(request()->is('purpose*') || request()->is('loket*') || request()->is('display*')) menu-open @endif">
+          <li class="nav-item @if(request()->is('purpose*') || request()->is('data-loket*') || request()->is('data-antarmuka*')) menu-open @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
@@ -75,13 +75,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="loket" class="nav-link @if(request()->is('loket')) active @endif">
+                <a href="data-loket" class="nav-link @if(request()->is('data-loket')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Loket</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="display" class="nav-link @if(request()->is('display')) active @endif">
+                <a href="data-antarmuka" class="nav-link @if(request()->is('data-antarmuka')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Antarmuka</p>
                 </a>

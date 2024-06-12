@@ -47,7 +47,6 @@ class OutletController extends Controller
     public function getOutlet($id)
     {
         $data = Outlet::find($id);
-        // dd($data);
 
         return view('/outlet/edit_outlet', compact('data'));
     }

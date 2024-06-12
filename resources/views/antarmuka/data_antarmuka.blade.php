@@ -8,12 +8,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Tujuan Loket</h1>
+            <h1>Data Antarmuka</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Data Tujuan Loket</li>
+              <li class="breadcrumb-item active">Data Antarmuka</li>
             </ol>
           </div>
         </div>
@@ -27,32 +27,45 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="#" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
+                <a href="/create-antarmuka" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="data-purpose" class="table table-bordered table-hover">
+                <table id="data-antarmuka" class="table table-bordered table-hover">
                   <thead>
                   <tr class="text-center">
                     <th>No</th>
-                    <th>Kode Antrian</th>
-                    <th>Jenis</th>
                     <th>Keterangan</th>
+                    <th>Nama</th>
+                    <th>Sumber</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
+                    @php
+                     $no = 1;
+                    @endphp
+                    @foreach ($data as $antarmuka)
                     <tr class="text-center">
-                        <td>1</td>
-                        <td>A</td>
-                        <td>Pelayanan</td>
-                        <td>Pelayanan KTP</td>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $antarmuka->keterangan }}<span class="badge bg-success">Aktif</span></td>
+                        <td>{{ $antarmuka->name }}</td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-success"><span class="fas fa-th"></span></a>
-                            <a href="#" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
-                            <a href="#" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
+                            @if ($antarmuka->keterangan == 'Local')
+                            {{ $antarmuka->source_local }}
+                            @elseif ($antarmuka->keterangan == 'Youtube')
+                            {{ $antarmuka->source_youtube }}
+                            @else
+                            N/A
+                            @endif
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-success"><span class="fas fa-check-square"></span></a>
+                            <a href="/get-antarmuka/{{ $antarmuka->id }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
+                            <a href="/delete-antarmuka/{{ $antarmuka->id }}" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
                         </td>
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -72,10 +85,10 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $("#data-purpose").DataTable({
+    $("#data-antarmuka").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#data-purpose_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#data-antarmuka_wrapper .col-md-6:eq(0)');
   });
 </script>
 </body>

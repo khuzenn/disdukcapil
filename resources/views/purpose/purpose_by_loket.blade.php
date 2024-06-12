@@ -8,14 +8,28 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Loket</h1>
+            <h1>Data Tujuan Loket</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Data Loket</li>
+              <li class="breadcrumb-item active">Data Tujuan Loket</li>
             </ol>
           </div>
+          @if ($message = Session::get('success'))
+              <div class="alert alert-success alert-dismissible fade show mb-0 mt-3" role="alert">
+                  {{$message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <script>
+                  // Auto close alert after 5 seconds
+                  setTimeout(function(){
+                      $('.alert').alert('close');
+                  }, 3000);
+              </script>
+          @endif
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -27,7 +41,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="#" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
+                <a href="/purpose" class="btn btn-sm btn-danger mt-2 mb-2"><i class="fa fa-chevron-left"></i>&nbsp Kembali</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -36,25 +50,27 @@
                   <tr class="text-center">
                     <th>No</th>
                     <th>Nama Loket</th>
-                    <th>No Loket</th>
+                    <th>Nomor Loket</th>
                     <th>Kode Antrian</th>
                     <th>Jenis Antrian</th>
-                    <th>Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
+                    @php
+                      $no = 1;
+                    @endphp
+                    @foreach ($data as $loket)
                     <tr class="text-center">
-                        <td>1</td>
-                        <td>Loket 1</td>
-                        <td>1</td>
-                        <td>A</td>
-                        <td>Pelayanan KTP</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-success"><span class="fas fa-user"></span></a>
-                            <a href="#" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
-                            <a href="#" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
-                        </td>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $loket->name }}</td>
+                        <td>{{ $loket->nomor }}</td>
+                        @php
+                          $purpose = App\Models\Purpose::find($loket->purpose_id);
+                        @endphp
+                        <td>{{ $purpose->kode }}</td>
+                        <td>{{ $purpose->jenis }}</td>
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
