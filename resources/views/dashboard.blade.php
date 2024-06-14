@@ -109,7 +109,7 @@
                         <div class="icon">
                             <i class="fas fa-bookmark"></i>
                         </div>
-                        <form action="#" method="post">
+                        <form action="" method="post">
                             <input type="hidden" name="_token" value="0ycAm2ay718Jm6vS7rwPRFmjGNiIIQRfpUgszUHK">
                             <input type="hidden" id="user_id" name="user_id" value="1">
                             <button type="submit" class="btn btn-block btn-info btn-sm" onclick="return confirm('Are you sure?')">

@@ -31,10 +31,8 @@ class AntarmukaController extends Controller
 
         if ($request->keterangan === 'Youtube') {
             $validatedData['source_youtube'] = $request->source_youtube;
-            
         } elseif ($request->keterangan === 'Local') {
             $validatedData['source_local'] = $request->file('source_local')->store('antarmukas');
-            
         }
 
         Antarmuka::create($validatedData);

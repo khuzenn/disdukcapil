@@ -19,15 +19,15 @@
       </div>
 
       <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" name="search" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
+      <div class="user-panel mt-3 pb-3 mb3 d-flex">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="/rincian-loket" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Rincian Loket</p>
+            </a>
+          </li>
+        </ul>
       </div>
 
       <!-- Sidebar Menu -->

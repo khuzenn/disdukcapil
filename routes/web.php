@@ -5,6 +5,8 @@ use App\Http\Controllers\OutletController;
 use App\Http\Controllers\PurposeController;
 use App\Http\Controllers\LoketController;
 use App\Http\Controllers\AntarmukaController;
+use App\Http\Controllers\RincianLoketController;
+use App\Http\Controllers\AntarmukaDisplayController;
 
 
 Route::get('/', function () {
@@ -47,3 +49,7 @@ Route::post('/addAntarmuka', [AntarmukaController::class, 'addAntarmuka'])->name
 Route::get('/get-antarmuka/{id}', [AntarmukaController::class, 'getAntarmuka'])->name('getAntarmuka');
 Route::post('/update-antarmuka/{id}', [AntarmukaController::class, 'updateAntarmuka'])->name('updateAntarmuka');
 Route::get('/delete-antarmuka/{id}', [AntarmukaController::class, 'deleteAntarmuka'])->name('deleteAntarmuka');
+
+// Rincian Loket
+Route::get('/rincian-loket', [RincianLoketController::class, 'index'])->name('rincian-loket');
+Route::get('/antarmuka-display', [AntarmukaDisplayController::class, 'index'])->name('antarmuka-display');

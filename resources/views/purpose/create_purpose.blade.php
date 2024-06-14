@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="keterangan">Keterangan</label>
-                                    <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan Antrian">
+                                    <textarea name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan Antrian"></textarea>
                                 </div>
                             </div>
                             <div class="card-footer">
