@@ -22,7 +22,7 @@
       <div class="user-panel mt-3 pb-3 mb3 d-flex">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="/rincian-loket" class="nav-link">
+            <a href="/rincian-loket" class="nav-link" target="_blank">
               <i class="nav-icon fas fa-th"></i>
               <p>Rincian Loket</p>
             </a>

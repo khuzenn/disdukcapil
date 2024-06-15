@@ -64,7 +64,7 @@
     <div class="wrapper hw-100">
         <div class="row">
             <div class="col-lg-12">
-                <nav class="navbar navbar-expand navbar-primary" style="background-color: #ffae52!important; color: #ffffff!important;">
+                <nav class="navbar navbar-expand navbar-primary" style="background-color: {{$data->header_color}} !important; color: {{$data->text_color}} !important;">
                     <ul class="navbar-nav">
                         <li class="nav-item d-none d-sm-inline-block">
                             <div class="flex-container">
@@ -88,7 +88,7 @@
                         </li>
                         <li class="nav-item d-none d-sm-inline-block">
                             <a href="#" class="nav-link" data-widget="fullscreen" role="button">
-                                <h2><i class="fas fa-expand-arrows-alt" style="color: #ffffff"></i></h2>
+                                <h2><i class="fas fa-expand-arrows-alt" style="color: {{$data->text_color}}"></i></h2>
                             </a>
                         </li>
                     </ul>
@@ -108,7 +108,7 @@
         </div>
         <div class="row mt-3 mr-1 ml-1">
             <div class="col-md-5 text-center">
-                <div class="alert alert-block alert-info" style="height:96%; background-color:#ffae52!important; border-color:#ffae52!important; color:#ffffff!important;">
+                <div class="alert alert-block alert-info" style="height:96%; background-color: {{$data->box_display_color}} !important; color: {{$data->text_color}} !important;">
                     <br>
                     <br>
                     <h2>Nomor Antrian</h2>
@@ -130,7 +130,7 @@
         </div>
         <div class="row mt-1 mr-1 ml-1">
             <div class="col-md-3 text-center">
-                <div class="alert alert-info" style="height:96%; background-color:#ffae52!important; border-color:#ffae52!important; color:#ffffff!important;">
+                <div class="alert alert-info" style="height:96%; background-color: {{$data->box_display_color}} !important; color: {{$data->text_color}} !important;">
                     <h3>Nomor Antrian</h3>
                     <hr>
                     <h1 class="display-4 font-weight-bold" id="nomor_antrian_0">- </h1>
@@ -141,7 +141,7 @@
                 </div>
             </div>
             <div class="col-md-3 text-center">
-                <div class="alert alert-info" style="height:96%; background-color:#ffae52!important; border-color:#ffae52!important; color:#ffffff!important;">
+                <div class="alert alert-info" style="height:96%; background-color: {{$data->box_display_color}} !important; color: {{$data->text_color}} !important;">
                     <h3>Nomor Antrian</h3>
                     <hr>
                     <h1 class="display-4 font-weight-bold" id="nomor_antrian_0">- </h1>
@@ -152,7 +152,7 @@
                 </div>
             </div>
             <div class="col-md-3 text-center">
-                <div class="alert alert-info" style="height:96%; background-color:#ffae52!important; border-color:#ffae52!important; color:#ffffff!important;">
+                <div class="alert alert-info" style="height:96%; background-color: {{$data->box_display_color}} !important; color: {{$data->text_color}} !important;">
                     <h3>Nomor Antrian</h3>
                     <hr>
                     <h1 class="display-4 font-weight-bold" id="nomor_antrian_0">- </h1>
@@ -163,7 +163,7 @@
                 </div>
             </div>
             <div class="col-md-3 text-center">
-                <div class="alert alert-info" style="height:96%; background-color:#ffae52!important; border-color:#ffae52!important; color:#ffffff!important;">
+                <div class="alert alert-info" style="height:96%; background-color: {{$data->box_display_color}} !important; color: {{$data->text_color}} !important;">
                     <h3>Nomor Antrian</h3>
                     <hr>
                     <h1 class="display-4 font-weight-bold" id="nomor_antrian_0">- </h1>
@@ -176,7 +176,7 @@
         </div>
     </section>
 
-    <div class="footer" style="background-color: #ffae52!important; color: #ffffff!important;">
+    <div class="footer" style="background-color: {{$data->header_color}}!important; color: {{$data->text_color}}!important;">
         <marquee>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio reprehenderit laborum quam possimus cumque ad culpa dolorem asperiores dignissimos excepturi.</marquee>
     </div>
 

@@ -64,7 +64,7 @@
     <div class="wrapper hw-100">
         <div class="row">
             <div class="col-lg-12">
-                <nav class="navbar navbar-expand navbar-primary" style="background-color: #ffae52!important; color: #ffffff!important;">
+                <nav class="navbar navbar-expand navbar-primary" style="background-color: {{$data->header_color}}!important; color: {{$data->text_color}}!important;">
                     <ul class="navbar-nav">
                         <li class="nav-item d-none d-sm-inline-block">
                             <div class="flex-container">
@@ -103,66 +103,25 @@
                 <h3 class="mt-4 text-center">Ambil Antrian</h3>
                 <hr>
             </div>
+            @foreach ($lokets as $loket)
             <div class="col-lg-4 col-12">
-                <div class="small-box bg-success" style="backgound-color: #ffae52!important; color: #ffffff!important;">
+                <div class="small-box" style="background-color: {{$data->box_ambil_color}} !important; color: {{$data->text_color}} !important;">
                     <div class="inner">
-                        <h3>Pelayanan KTP</h3>
-                        <p>Antrian untuk ke Pelayanan KTP</p>
+                        <h3>{{ $loket->name }}</h3>
+                        <p>{{ $loket->purpose->keterangan }}</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-bookmark"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="#" class="small-box-footer" onclick= "ambilAntrian('{{ $loket->id_antrian }}')">
                         Ambil Antrian <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-4 col-12">
-                <div class="small-box bg-success" style="backgound-color: #ffae52!important; color: #ffffff!important;">
-                    <div class="inner">
-                        <h3>Pelayanan KK</h3>
-                        <p>Antrian untuk ke Pelayanan KK</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-bookmark"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        Ambil Antrian <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-12">
-                <div class="small-box bg-success" style="backgound-color: #ffae52!important; color: #ffffff!important;">
-                    <div class="inner">
-                        <h3>Pelayanan Akte</h3>
-                        <p>Antrian untuk ke Pelayanan Akte Kelahiran</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-bookmark"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        Ambil Antrian <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-12">
-                <div class="small-box bg-success" style="backgound-color: #ffae52!important; color: #ffffff!important;">
-                    <div class="inner">
-                        <h3>Konsultasi Penduduk</h3>
-                        <p>Antrian untuk ke Konsultasi Penduduk</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-bookmark"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        Ambil Antrian <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-
+            @endforeach
         </div>
     </div>
-    <div class="footer" style="background-color: #ffae52!important; color: #ffffff!important;">
+    <div class="footer" style="background-color: {{$data->header_color}}!important; color: {{$data->text_color}}!important;">
         <marquee>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio reprehenderit laborum quam possimus cumque ad culpa dolorem asperiores dignissimos excepturi.</marquee>
     </div>
 
@@ -235,154 +194,39 @@
     var t = setTimeout(startTime, 500);
   }
   function checkTime(i) {
-    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    if (i < 10) {i = "0" + i};
     return i;
   }
 </script>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-    var Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000
-    });
-
-    tableAntrianAktifRefresh();
-    var refreshAntrianAktifId = setInterval(tableAntrianAktifRefresh, 5000);
-    tableAntrianRefresh();
-    var refreshAntrianId = setInterval(tableAntrianRefresh, 5000);
-
-    $(document).keyup(function(event) {
-        if (event.keyCode === 13) {
-            $("#panggil").click();
-        }
-    });
-
-    $(document).keyup(function(event) {
-        if (event.keyCode === 120) {
-            panggilUlang();
-        }
-    });
-                
-    $('#panggil').on('click', function(){
-        var id_user = $('#panggil').data('users');
-
+<script>
+    function ambilAntrian(id_antrian) {
         $.ajax({
-            url: "",
-            method: 'POST',
+            url: "/create-antrian",
+            type: "POST",
             data: {
-                _token: '',
-                user_id: id_user
+                _token: '{{ csrf_token() }}',
+                id_antrian: id_antrian
             },
-            dataType: 'json',
-            success: function(data){
-                var nomor_loket = data['nomor_loket'];
-                var antrian_sebelumnya = data['antrian_sebelumnya'];
-                var antrian_panggil = data['antrian_panggil'];
-
-                panggilUlang();
-                tableAntrianAktifRefresh();
-                tableAntrianRefresh();
-            }
-        });
-    });
-
-    $('#panggil-ulang').on('click', function(){
-        panggilUlang();
-    });
-
-    function panggilUlang(){
-        $('#setOverlay').append('<div class="overlay" id="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i></div>');
-        var id_user = $('#panggil-ulang').data('users');
-
-        $.ajax({
-            url: "",
-            method: 'POST',
-            data: {
-                _token: '',
-                user_id: id_user
-            },
-            dataType: 'json',
-            success: function(data){
-                var nomor_loket = data['nomor_loket'];
+            dataType: "json",
+            success: function(data) {
+                var nama_outlet = data['nama_outlet'];
+                var alamat_outlet  = data['alamat_outlet '];
+                var no_telp = data['no_telp'];
                 var nomor_antrian = data['nomor_antrian'];
+                var jenis_antrian = data['jenis_antrian'];
+                var keterangan = data['keterangan'];
+                var count = data['count'];
+                var hari = data['hari'];
+                var tanggal = data['tanggal'];
 
-                actionPanggil(nomor_antrian);
-
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Berhasil memanggil No. antrian '+nomor_antrian+' menuju loket '+nomor_loket,
-                })
-            }
-        }).fail(function(){
-            Toast.fire({
-            icon: 'error',
-            title: 'No. antrian gagal dipanggil! Silahkan cek koneksi database aplikasi.',
-            })
-        }).always(function(){
-            $("#overlay").remove();
-        });
-    }
-
-    function tableAntrianAktifRefresh(){
-        $('#table-antrian-aktif').DataTable({
-            serverSide: false,
-            ajax: {
-                url: "",
-                type: 'GET',
-                DataType: 'JSON'
+                alert('Berhasil mengambil antrian');
             },
-            order: [[1,'asc']],
-            // scrollX: true,
-            processing: true,
-            columns: [
-                {data: 'nomor_antrian'},
-                {data: 'nomor_loket'},
-                {data: 'keterangan'}
-            ],
-            "responsive" : true,
-            "bDestroy": true
-        });
-    }
-
-    function tableAntrianRefresh(){
-        $('#table-antrian').DataTable({
-            serverSide: false,
-            ajax: {
-                url: "",
-                type: 'GET',
-                DataType: 'JSON'
-            },
-            order: [[1,'asc']],
-            // scrollX: true,
-            processing: true,
-            columns: [
-                {data: 'keterangan'},
-                {data: 'kode'},
-                {data: 'jumlah_antrian'}
-            ],
-            "responsive" : true,
-            "bDestroy": true
-        });
-    }
-
-    function actionPanggil(nomor_antrian){
-        $.ajax({
-            url: "",
-            method: 'POST',
-            data: {
-                _token: '',
-                nomor_antrian: nomor_antrian
-            },
-            dataType: 'json',
-            success: function(data){
-                var status_code = data['status_code'];
+            error: function() {
+                alert('Gagal mengambil antrian! Silahkan coba lagi');
             }
         });
     }
-});
 </script>
 </body>
 </html>

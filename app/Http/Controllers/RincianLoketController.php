@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Outlet;
 
 class RincianLoketController extends Controller
 {
     public function index()
     {
-        return view('/rincian_loket');
+        $data = Outlet::first();
+        return view('/rincian_loket', compact('data'));
     }
 }
