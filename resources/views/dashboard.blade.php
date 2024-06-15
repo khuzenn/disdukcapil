@@ -47,7 +47,7 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Total Loket</span>
                             <span class="info-box-number">
-                                <h4><b>1</b></h4>
+                                <h4><b>{{ $totalLoket }}</b></h4>
                             </span>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Total Tujuan Antrian</span>
                             <span class="info-box-number">
-                                <h4><b>2</b></h4>
+                                <h4><b>{{ $totalPurpose }}</b></h4>
                             </span>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Total Pengguna</span>
                             <span class="info-box-number">
-                                <h4><b>2</b></h4>
+                                <h4><b>0</b></h4>
                             </span>
                         </div>
                     </div>
@@ -109,13 +109,9 @@
                         <div class="icon">
                             <i class="fas fa-bookmark"></i>
                         </div>
-                        <form action="" method="post">
-                            <input type="hidden" name="_token" value="0ycAm2ay718Jm6vS7rwPRFmjGNiIIQRfpUgszUHK">
-                            <input type="hidden" id="user_id" name="user_id" value="1">
-                            <button type="submit" class="btn btn-block btn-info btn-sm" onclick="return confirm('Are you sure?')">
-                                More Info <i class="fas fa-arrow-circle-right"></i>
-                            </button>
-                        </form>
+                        <a href="/antarmuka-display" target="_blank" class="small-box-footer">
+                            More Info <i class=" fas fa-arrow-circle-right"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -128,13 +124,9 @@
                         <div class="icon">
                             <i class="fas fa-bookmark"></i>
                         </div>
-                        <form action="#" method="post">
-                            <input type="hidden" name="_token" value="0ycAm2ay718Jm6vS7rwPRFmjGNiIIQRfpUgszUHK">
-                            <input type="hidden" id="user_id" name="user_id" value="1">
-                            <button type="submit" class="btn btn-block btn-success btn-sm" onclick="return confirm('Are you sure?')">
-                                More Info <i class="fas fa-arrow-circle-right"></i>
-                            </button>
-                        </form>
+                        <a href="/display-antrian" target="_blank" class="small-box-footer">
+                            More Info <i class=" fas fa-arrow-circle-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
