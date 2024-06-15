@@ -64,7 +64,7 @@
     <div class="wrapper hw-100">
         <div class="row">
             <div class="col-lg-12">
-                <nav class="navbar navbar-expand navbar-primary" style="background-color: #ffae52!important; color: #ffffff!important;">
+                <nav class="navbar navbar-expand navbar-primary" style="background-color: {{$data->header_color}} !important; color: {{$data->text_color}} !important;">
                     <ul class="navbar-nav">
                         <li class="nav-item d-none d-sm-inline-block">
                             <div class="flex-container">
@@ -224,7 +224,7 @@
             </div>
         </section>
     </div>
-    <div class="footer" style="background-color: #ffae52!important; color: #ffffff!important;">
+    <div class="footer" style="background-color: {{$data->header_color}} !important; color: {{$data->text_color}} !important;">
         <marquee>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio reprehenderit laborum quam possimus cumque ad culpa dolorem asperiores dignissimos excepturi.</marquee>
     </div>
 
