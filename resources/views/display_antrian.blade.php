@@ -97,71 +97,85 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="row justify-content-center mt-2">
-            <div class="col-lg-12 mb-4">
-                <h3 class="mt-4 text-center">Ambil Antrian</h3>
-                <hr>
-            </div>
-            <div class="col-lg-4 col-12">
-                <div class="small-box bg-success" style="backgound-color: #ffae52!important; color: #ffffff!important;">
-                    <div class="inner">
-                        <h3>Pelayanan KTP</h3>
-                        <p>Antrian untuk ke Pelayanan KTP</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-bookmark"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        Ambil Antrian <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-12">
-                <div class="small-box bg-success" style="backgound-color: #ffae52!important; color: #ffffff!important;">
-                    <div class="inner">
-                        <h3>Pelayanan KK</h3>
-                        <p>Antrian untuk ke Pelayanan KK</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-bookmark"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        Ambil Antrian <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-12">
-                <div class="small-box bg-success" style="backgound-color: #ffae52!important; color: #ffffff!important;">
-                    <div class="inner">
-                        <h3>Pelayanan Akte</h3>
-                        <p>Antrian untuk ke Pelayanan Akte Kelahiran</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-bookmark"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        Ambil Antrian <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-12">
-                <div class="small-box bg-success" style="backgound-color: #ffae52!important; color: #ffffff!important;">
-                    <div class="inner">
-                        <h3>Konsultasi Penduduk</h3>
-                        <p>Antrian untuk ke Konsultasi Penduduk</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-bookmark"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        Ambil Antrian <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-
+    <section class="content">
+        <div class="add-audio" style="dislay: none">
+            <audio id="bell-announcement">
+                <source src="" type="audio/ogg">
+            </audio>
+            <audio id="bell-closing">
+                <source src="" type="audio/ogg">
+            </audio>
         </div>
-    </div>
+        <div class="row mt-3 mr-1 ml-1">
+            <div class="col-md-5 text-center">
+                <div class="alert alert-block alert-info" style="height:96%; background-color:#ffae52!important; border-color:#ffae52!important; color:#ffffff!important;">
+                    <br>
+                    <br>
+                    <h2>Nomor Antrian</h2>
+                    <hr>
+                    <h1 class="display-1 font-weight-bold" id="nomor_antrian">-</h1>
+                    <hr>
+                    <h3 id="keterangan" style="display:inline;">- </h3>
+                    <h3 style="display:inline;" class="font-weight-bold"><i class="icon fas fa-arrow-circle-right"></i> Loket </h3>
+                    <h3 id="nomor_loket" style="display-inline;" class="font-weight-bold">-</h3>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="card card-default">
+                    <div class="card-body">
+                        <iframe width="100%" height="340" src="https://www.youtube.com/embed/DOOrIxw5xOw&ab_channel?playlist=DOOrIxw5xOw&ab_channel&autoplay=1&loop=1&showinfo=0&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1 mr-1 ml-1">
+            <div class="col-md-3 text-center">
+                <div class="alert alert-info" style="height:96%; background-color:#ffae52!important; border-color:#ffae52!important; color:#ffffff!important;">
+                    <h3>Nomor Antrian</h3>
+                    <hr>
+                    <h1 class="display-4 font-weight-bold" id="nomor_antrian_0">- </h1>
+                    <hr>
+                    <h5 id="keterangan_0" style="display:inline;">- </h5>
+                    <h5 style="display:inline;" class="font-weight-bold"><i class="icon fas fa-arrow-circle-right"> </i> Loket </h5>
+                    <h5 id="nomor_loket_0" style="display:inline;" class="font-weight-bold">-</h5>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="alert alert-info" style="height:96%; background-color:#ffae52!important; border-color:#ffae52!important; color:#ffffff!important;">
+                    <h3>Nomor Antrian</h3>
+                    <hr>
+                    <h1 class="display-4 font-weight-bold" id="nomor_antrian_0">- </h1>
+                    <hr>
+                    <h5 id="keterangan_0" style="display:inline;">- </h5>
+                    <h5 style="display:inline;" class="font-weight-bold"><i class="icon fas fa-arrow-circle-right"> </i> Loket </h5>
+                    <h5 id="nomor_loket_0" style="display:inline;" class="font-weight-bold">-</h5>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="alert alert-info" style="height:96%; background-color:#ffae52!important; border-color:#ffae52!important; color:#ffffff!important;">
+                    <h3>Nomor Antrian</h3>
+                    <hr>
+                    <h1 class="display-4 font-weight-bold" id="nomor_antrian_0">- </h1>
+                    <hr>
+                    <h5 id="keterangan_0" style="display:inline;">- </h5>
+                    <h5 style="display:inline;" class="font-weight-bold"><i class="icon fas fa-arrow-circle-right"> </i> Loket </h5>
+                    <h5 id="nomor_loket_0" style="display:inline;" class="font-weight-bold">-</h5>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="alert alert-info" style="height:96%; background-color:#ffae52!important; border-color:#ffae52!important; color:#ffffff!important;">
+                    <h3>Nomor Antrian</h3>
+                    <hr>
+                    <h1 class="display-4 font-weight-bold" id="nomor_antrian_0">- </h1>
+                    <hr>
+                    <h5 id="keterangan_0" style="display:inline;">- </h5>
+                    <h5 style="display:inline;" class="font-weight-bold"><i class="icon fas fa-arrow-circle-right"> </i> Loket </h5>
+                    <h5 id="nomor_loket_0" style="display:inline;" class="font-weight-bold">-</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="footer" style="background-color: #ffae52!important; color: #ffffff!important;">
         <marquee>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio reprehenderit laborum quam possimus cumque ad culpa dolorem asperiores dignissimos excepturi.</marquee>
     </div>

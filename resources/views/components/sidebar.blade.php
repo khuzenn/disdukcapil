@@ -36,7 +36,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="/" class="nav-link @if(request()->is('/')) active @endif">
+            <a href="dashboard" class="nav-link @if(request()->is('dashboard')) active @endif">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -44,7 +44,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="data-pengguna" class="nav-link @if(request()->is('data-pengguna')) active @endif">
+            <a href="users" class="nav-link @if(request()->is('users')) active @endif">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Data Pengguna

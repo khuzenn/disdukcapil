@@ -27,7 +27,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="#" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
+                <a href="create-users" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">

@@ -1,21 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\PurposeController;
 use App\Http\Controllers\LoketController;
 use App\Http\Controllers\AntarmukaController;
 use App\Http\Controllers\RincianLoketController;
 use App\Http\Controllers\AntarmukaDisplayController;
+use App\Http\Controllers\DisplayAntrianController;
 
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/', function () {
-    return view('dashboard');
-});
-
-Route::get('/data-pengguna', function () {
-    return view('data_pengguna');
-});
+// Users
+Route::get('/users', [UsersController::class, 'index'])->name('users');
+Route::get('/create-users', [UsersController::class, 'create_users'])->name('create-users');
 
 // Outlet Menu
 Route::get('/data-outlet', [OutletController::class, 'index'])->name('data-outlet');
@@ -53,3 +54,4 @@ Route::get('/delete-antarmuka/{id}', [AntarmukaController::class, 'deleteAntarmu
 // Rincian Loket
 Route::get('/rincian-loket', [RincianLoketController::class, 'index'])->name('rincian-loket');
 Route::get('/antarmuka-display', [AntarmukaDisplayController::class, 'index'])->name('antarmuka-display');
+Route::get('/display-antrian', [DisplayAntrianController::class, 'index'])->name('display-antrian');
