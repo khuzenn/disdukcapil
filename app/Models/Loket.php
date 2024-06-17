@@ -17,4 +17,9 @@ class Loket extends Model
     {
         return $this->belongsTo(Purpose::class, 'purpose_id');
     }
+
+    public function antrians()
+    {
+        return $this->hasMany(Antrian::class);
+    }
 }

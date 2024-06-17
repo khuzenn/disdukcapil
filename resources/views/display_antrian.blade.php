@@ -71,9 +71,9 @@
                                 <img src='/assets/logo/1718125049.png' alt="Logo" height="110" class="p-2">
                                 <div class="nav-link align-items-center">
                                     <h1 class="display-4">
-                                        <b>DISDUKCAPIL JAKARTA</b>
+                                        <b>{{$data->name}}</b>
                                     </h1>
-                                    <h5>DISDUKCAPIL JAKARTA</h5>
+                                    <h5>{{$data->name}}</h5>
                                 </div>
                             </div>
                         </li>
@@ -177,7 +177,7 @@
     </section>
 
     <div class="footer" style="background-color: {{$data->header_color}}!important; color: {{$data->text_color}}!important;">
-        <marquee>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio reprehenderit laborum quam possimus cumque ad culpa dolorem asperiores dignissimos excepturi.</marquee>
+        <marquee>{{$data->running_text}}</marquee>
     </div>
 
 <!-- jQuery -->
