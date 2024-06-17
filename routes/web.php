@@ -8,8 +8,8 @@ use App\Http\Controllers\PurposeController;
 use App\Http\Controllers\LoketController;
 use App\Http\Controllers\AntarmukaController;
 use App\Http\Controllers\RincianLoketController;
-use App\Http\Controllers\AntarmukaDisplayController;
 use App\Http\Controllers\DisplayAntrianController;
+use App\Http\Controllers\AntrianController;
 
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -53,5 +53,10 @@ Route::get('/delete-antarmuka/{id}', [AntarmukaController::class, 'deleteAntarmu
 
 // Rincian Loket
 Route::get('/rincian-loket', [RincianLoketController::class, 'index'])->name('rincian-loket');
-Route::get('/antarmuka-display', [AntarmukaDisplayController::class, 'index'])->name('antarmuka-display');
 Route::get('/display-antrian', [DisplayAntrianController::class, 'index'])->name('display-antrian');
+Route::get('/tabel-antrian-aktif', [RincianLoketController::class, 'antrianAktif'])->name('tabel-antrian-aktif');
+Route::get('/tabel-antrian', [RincianLoketController::class, 'getAntrian'])->name('tabel-antrian');
+
+// Antrian
+Route::get('/antarmuka-display', [AntrianController::class, 'index'])->name('antarmuka-display');
+Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');

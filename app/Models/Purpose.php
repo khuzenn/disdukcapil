@@ -12,4 +12,9 @@ class Purpose extends Model
         'jenis',
         'keterangan'
     ];
+
+    public function antrians()
+    {
+        return $this->hasMany(Antrian::class);
+    }
 }

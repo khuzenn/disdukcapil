@@ -35,6 +35,8 @@
   <link rel="stylesheet" href="/AdminLTE/plugins/toastr/toastr.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+   <!-- jQuery -->
+   <script src="/AdminLTE/plugins/jquery/jquery.min.js"></script>
 
   <style>
     .flex-container {
@@ -71,9 +73,9 @@
                                 <img src='/assets/logo/1718125049.png' alt="Logo" height="110" class="p-2">
                                 <div class="nav-link align-items-center">
                                     <h1 class="display-4">
-                                        <b>DISDUKCAPIL JAKARTA</b>
+                                        <b>{{$data->name}}</b>
                                     </h1>
-                                    <h5>DISDUKCAPIL JAKARTA</h5>
+                                    <h5>{{$data->name}}</h5>
                                 </div>
                             </div>
                         </li>
@@ -125,11 +127,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>Pelayanan KTP</td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -156,11 +154,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Pelayanan KTP</td>
-                                            <td>A</td>
-                                            <td>3</td>
-                                        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -225,11 +219,11 @@
         </section>
     </div>
     <div class="footer" style="background-color: {{$data->header_color}} !important; color: {{$data->text_color}} !important;">
-        <marquee>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio reprehenderit laborum quam possimus cumque ad culpa dolorem asperiores dignissimos excepturi.</marquee>
+        <marquee>{{$data->running_text}}</marquee>
     </div>
 
 <!-- jQuery -->
-<script language="Javascript" type="text/javascript" src="/AdminLTE/plugins/jquery/jquery.min.js"></script>
+<!-- <script language="Javascript" type="text/javascript" src="/AdminLTE/plugins/jquery/jquery.min.js"></script> -->
 <!-- jQuery UI 1.11.4 -->
 <script src="/AdminLTE/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -238,6 +232,10 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="/AdminLTE/plugins/toastr/toastr.min.js"></script>
 <!-- ChartJS -->
 <script src="/AdminLTE/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
@@ -297,7 +295,7 @@
     var t = setTimeout(startTime, 500);
   }
   function checkTime(i) {
-    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    if (i < 10) {i = "0" + i};
     return i;
   }
 </script>
@@ -312,9 +310,9 @@
     });
 
     tableAntrianAktifRefresh();
-    var refreshAntrianAktifId = setInterval(tableAntrianAktifRefresh, 5000);
+    // var refreshAntrianAktifId = setInterval(tableAntrianAktifRefresh, 5000);
     tableAntrianRefresh();
-    var refreshAntrianId = setInterval(tableAntrianRefresh, 5000);
+    // var refreshAntrianId = setInterval(tableAntrianRefresh, 5000);
 
     $(document).keyup(function(event) {
         if (event.keyCode === 13) {
@@ -390,10 +388,10 @@
 
     function tableAntrianAktifRefresh(){
         $('#table-antrian-aktif').DataTable({
-            serverSide: false,
+            serverSide: true,
             ajax: {
-                url: "",
-                type: 'GET',
+                url: "/tabel-antrian-aktif",
+                method: 'GET',
                 DataType: 'JSON'
             },
             order: [[1,'asc']],
@@ -402,7 +400,7 @@
             columns: [
                 {data: 'nomor_antrian'},
                 {data: 'nomor_loket'},
-                {data: 'keterangan'}
+                {data: 'jenis_transaksi'}
             ],
             "responsive" : true,
             "bDestroy": true
@@ -411,18 +409,18 @@
 
     function tableAntrianRefresh(){
         $('#table-antrian').DataTable({
-            serverSide: false,
+            serverSide: true,
             ajax: {
-                url: "",
-                type: 'GET',
+                url: "/tabel-antrian",
+                method: 'GET',
                 DataType: 'JSON'
             },
             order: [[1,'asc']],
             // scrollX: true,
             processing: true,
             columns: [
-                {data: 'keterangan'},
-                {data: 'kode'},
+                {data: 'jenis_transaksi'},
+                {data: 'kode_antrian'},
                 {data: 'jumlah_antrian'}
             ],
             "responsive" : true,
