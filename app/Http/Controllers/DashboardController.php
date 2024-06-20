@@ -13,7 +13,7 @@ class DashboardController extends Controller
         $totalLoket = Loket::count();
         $totalPurpose = Purpose::count();
 
-        return view('dashboard', [
+        return view('admin.dashboard', [
             'totalLoket' => $totalLoket,
             'totalPurpose' => $totalPurpose
         ]);

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Outlet;
 use App\Models\Antrian;
 use App\Models\Purpose;
+use DB;
 
 class RincianLoketController extends Controller
 {
@@ -20,7 +21,7 @@ class RincianLoketController extends Controller
         $data = Antrian::join('lokets', 'antrians.loket_id', '=', 'lokets.id')
                        ->join('purposes', 'antrians.purpose_id', '=', 'purposes.id')
                        ->select([
-                           \DB::raw('CONCAT(purposes.kode, LPAD(antrians.nomor_antrian, 3, "0")) as nomor_antrian'),
+                           DB::raw('CONCAT(purposes.kode, LPAD(antrians.nomor_antrian, 3, "0")) as nomor_antrian'),
                            'lokets.nomor as nomor_loket',
                            'lokets.name as jenis_transaksi'
                        ])
@@ -36,7 +37,7 @@ class RincianLoketController extends Controller
                        ->select([
                            'lokets.name as jenis_transaksi',
                            'purposes.kode as kode_antrian',
-                           \DB::raw('count(antrians.loket_id) as jumlah_antrian')
+                           DB::raw('count(antrians.loket_id) as jumlah_antrian')
                        ])
                        ->groupBy('lokets.name', 'purposes.kode')
                        ->get();

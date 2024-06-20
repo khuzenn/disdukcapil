@@ -208,7 +208,15 @@
                                     <a href="#" class="btn btn-success btn-block mb-2">Kembali ke Menu</a>
                                     <a href="#" class="btn btn-secondary btn-block mb-2">Upload Foto Profil</a>
                                     <a href="#" class="btn btn-warning btn-block mb-2">Ubah Password</a>
-                                    <a href="#" class="btn btn-danger btn-block mb-2">Logout</a>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                            
+                                        <x-dropdown-link :href="route('logout')"
+                                                onclick="event.preventDefault();
+                                                            this.closest('form').submit();">
+                                            {{ __('Log Out') }}
+                                        </x-dropdown-link>
+                                    </form>
 
                                 </div>
                             </div>
