@@ -68,7 +68,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item d-none d-sm-inline-block">
                             <div class="flex-container">
-                                <img src='/assets/logo/1718125049.png' alt="Logo" height="110" class="p-2">
+                                <img src='/assets/logo/1718809145.png' alt="Logo" height="110" class="p-2">
                                 <div class="nav-link align-items-center">
                                     <h1 class="display-4">
                                         <b>{{$data->name}}</b>
