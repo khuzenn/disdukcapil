@@ -35,37 +35,31 @@
                   <thead>
                   <tr class="text-center">
                     <th>No</th>
-                    <th>Nama Lengkap</th>
-                    <th>No Loket</th>
-                    <th>Kode Antrian</th>
-                    <th>Jenis Loket</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Role</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr class="text-center">
-                    <td>1</td>
-                    <td>Ian</td>
-                    <td>1</td>
-                    <td>A</td>
-                    <td>Pelayanan</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
-                        <a href="#" class="btn btn-sm btn-success"><span class="fas fa-unlock-alt"></span></a>
-                        <a href="#" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
-                    </td>
-                  </tr>
-                  <tr class="text-center">
-                    <td>2</td>
-                    <td>Khuzen</td>
-                    <td>2</td>
-                    <td>B</td>
-                    <td>Pengaduan</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
-                        <a href="#" class="btn btn-sm btn-success"><span class="fas fa-unlock-alt"></span></a>
-                        <a href="#" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
-                    </td>
+                    <@foreach ($users as $user)
+                    <tr class="text-center">
+                        <td>{{ $user->id }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->role }}</td>
+                        <td>
+                          <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Hapus</button>
+                        </form>
+                          <a href="#" class="btn btn-sm btn-success"><span class="fas fa-unlock-alt"></span></a>
+                          <a href="#" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
+                      </td>
+                    </tr>
+                    @endforeach
+                    
                   </tr>
                   </tbody>
                 </table>
