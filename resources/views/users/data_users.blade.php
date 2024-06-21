@@ -42,20 +42,23 @@
                   </tr>
                   </thead>
                   <tbody>
-                    <@foreach ($users as $user)
+                    @foreach ($users as $user)
                     <tr class="text-center">
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->role }}</td>
-                        <td>
+                        <td class="d-flex justify-content-center">
                           <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Hapus</button>
-                        </form>
-                          <a href="#" class="btn btn-sm btn-success"><span class="fas fa-unlock-alt"></span></a>
-                          <a href="#" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
+                            <button type="submit" class="btn btn-sm btn-danger mx-2"><span class="fas fa-trash"></span></button>
+                          </form>
+                          <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit" class="btn btn-sm btn-warning mx-2"><span class="fas fa-edit"></span></button>
+                          </form>
                       </td>
                     </tr>
                     @endforeach
