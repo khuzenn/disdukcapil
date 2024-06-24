@@ -71,4 +71,10 @@ class LoketController extends Controller
 
         return redirect()->route('data-loket')->with('success', 'Loket berhasil dihapus');
     }
+
+    public function showRegistrationForm()
+{
+    $lokets = Loket::all();
+    return view('store', compact('lokets'));
+}
 }

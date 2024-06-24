@@ -27,39 +27,76 @@
                         <div class="card-header">
                             <h3 class="card-title">Tambah Pengguna</h3>
                         </div>
-                        <form id="quickForm" action="#" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="name">Nama Lengkap</label>
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Nama Lengkap Pengguna">
+                        <div class="">
+
+                                <div class="card-body register-card-body items-center">
+                                    <p class="login-box-msg">Register a new membership</p>
+                    
+                                    <form method="POST" action="{{ route('users.update', $user->id) }}">
+                                        @csrf
+                    
+                                        <div class="input-group mb-3">
+                                            <label for="name">Nama Lengkap</label>
+                                            <input type="text" class="form-control" placeholder="Nama Lengkap Pengguna" name="name" value="{{ old('name') }}" required autofocus>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-user"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                    
+                                        <div class="input-group mb-3">
+                                            <input type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-envelope"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                    
+                                        <div class="input-group mb-3">
+                                            <select class="custom-select" name="role" required>
+                                                <option value="" disabled selected>Choose role...</option>
+                                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                                                <option value="operator" {{ old('role') == 'operator' ? 'selected' : '' }}>Operator</option>
+                                                <!-- Add more options if needed -->
+                                            </select>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-user-tag"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                    
+                                        <div class="input-group mb-3">
+                                            <input type="password" class="form-control" placeholder="Password" name="password" required autocomplete="new-password">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-lock"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                    
+                                        <div class="input-group mb-3">
+                                            <input type="password" class="form-control" placeholder="Retype password" name="password_confirmation" required autocomplete="new-password">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-lock"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                    
+                                        <div class="row">
+                                            <!-- Register button -->
+                                            <div class="col-4">
+                                                <button type="submit" class="btn btn-primary btn-block ju">Register</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" name="username" id="username" class="form-control" placeholder="Username Pengguna">
-                                </div>
-                                <div class="form-group">
-                                    <label for="no_telp">Loket</label>
-                                    <select name="loket_id" id="loket_id" class="form-control">
-                                        <option value="" class="form-control">Pilih Loket</option>
-                                        <option value="" class="form-control">1</option>
-                                        <option value="" class="form-control">2</option>
-                                        <option value="" class="form-control">3</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="no_telp">Role</label>
-                                    <input type="text" name="no_telp" id="no_telp" class="form-control" placeholder="No.Telepon Outlet">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="********">
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Tambah</button>
-                            </div>
-                        </form>
+                                <!-- /.form-box -->
+                        </div>
+                        <!-- /.register-box -->
                     </div>
                 </div>
             </div>
@@ -68,21 +105,3 @@
 </div>
 
 @include('components.footer')
-
-<script>
-    function previewImage() {
-        var preview = document.querySelector('.img-preview');
-        var file = document.querySelector('input[type=file]').files[0];
-        var reader = new FileReader();
-
-        reader.onloadend = function () {
-            preview.src = reader.result;
-        }
-
-        if (file) {
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = "./assets/img/default-image.png";
-        }
-    }
-</script>
