@@ -38,15 +38,17 @@ class UsersController extends Controller
             ->with('success', 'User deleted successfully.');
     }
 
-    public function edit($id)
+    public function edit(Request $request)
     {
+        $id = $request->query('id');
         $user = User::findOrFail($id);
         $lokets = Loket::all();
-        return view('/users/edit_user', compact('user','lokets'));
+        return view('users.edit_user', compact('user','lokets'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
 {
+    $id = $request->query('id');
     $user = User::findOrFail($id);
 
     $rules = [

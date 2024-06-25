@@ -45,8 +45,8 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('admin/create-users', [RegisteredUserController::class, 'create'])->name('admin.register');
     Route::post('admin/create-users', [RegisteredUserController::class, 'store']);
     Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
-    Route::get('/admin/{id}/edit', [UsersController::class, 'edit'])->name('users.edit');
-    Route::put('/admin/{id}', [UsersController::class, 'update'])->name('users.update');
+    Route::get('/admin/edit', [UsersController::class, 'edit'])->name('admin.edit');
+    Route::put('/admin/update', [UsersController::class, 'update'])->name('admin.update');
     
     // Outlet Menu
     Route::get('admin/data-outlet', [OutletController::class, 'index'])->name('data-outlet');
