@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rules;
+use App\Models\Loket;
+use Illuminate\Validation\Rule;
+
 
 class UsersController extends Controller
 {
@@ -22,13 +29,62 @@ class UsersController extends Controller
         return view('/users/create_user');
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
+        $user = User::findOrFail($id);
         $user->delete();
-        
-        // Redirect kembali ke halaman index pengguna dengan pesan sukses
-        return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
+
+        return redirect()->route('users')
+            ->with('success', 'User deleted successfully.');
     }
 
+    public function edit(Request $request)
+    {
+        $id = $request->query('id');
+        $user = User::findOrFail($id);
+        $lokets = Loket::all();
+        return view('users.edit_user', compact('user','lokets'));
+    }
 
+    public function update(Request $request)
+{
+    $id = $request->query('id');
+    $user = User::findOrFail($id);
+
+    $rules = [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+        'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
+        'role' => ['required', 'string', 'in:operator,admin'],
+        'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+        'loket_id' => ['nullable', 'exists:lokets,id'],
+    ];
+
+    // Hanya tambahkan validasi password jika ada input password baru
+    if ($request->filled('password')) {
+        $rules['password'] = ['required', 'confirmed', Rules\Password::defaults()];
+    }
+
+    $request->validate($rules);
+
+    // Proses update user
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->username = $request->username;
+    $user->role = $request->role;
+    if ($request->hasFile('photo')) {
+        $path = $request->file('photo')->store('profile_photos', 'public');
+        $user->update(['photo' => $path]);
+    }
+    $user->loket_id = $request->loket_id;
+
+    // Update password jika ada input password baru
+    if ($request->filled('password')) {
+        $user->password = bcrypt($request->password);
+    }
+
+    $user->save();
+
+    return redirect()->route('users')->with('success', 'Outlet berhasil ditambahkan');
+}
 }

@@ -22,4 +22,14 @@ class Loket extends Model
     {
         return $this->hasMany(Antrian::class);
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function getLoket()
+    {
+        return $this->belongsTo(User::class,'loket_id');
+    }
 }

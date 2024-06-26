@@ -52,7 +52,7 @@
                         <td>{{ $loket->name }}</td>
                         <td>{{ $loket->nomor }}</td>
                         @php
-                            $purpose = App\Models\Purpose::find($loket->purpose_id);
+                            $purpose = App\Models\Purpose::find($loket->purpose_id); 
                         @endphp
                         <td>{{ $purpose->kode }}</td>
                         <td>{{ $purpose->jenis }}</td>

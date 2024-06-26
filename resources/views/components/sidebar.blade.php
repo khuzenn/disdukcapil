@@ -11,7 +11,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/AdminLTE/dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
+          @if (Auth::user()->photo)
+            <img src="{{ asset('../storage/' . Auth::user()->photo) }}" alt="Profile Photo">
+          @endif
+
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>

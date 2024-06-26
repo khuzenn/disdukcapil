@@ -14,7 +14,7 @@ class AntrianController extends Controller
     {
         $data = Outlet::first();
         $lokets = Loket::all();
-        return view('/antarmuka_display', compact('data', 'lokets'));
+        return view('/antarmuka_display', compact('data', 'lokets')); 
     }
 
     public function createAntrian(Request $request)

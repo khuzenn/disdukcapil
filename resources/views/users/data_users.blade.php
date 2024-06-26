@@ -36,29 +36,31 @@
                   <tr class="text-center">
                     <th>No</th>
                     <th>Nama</th>
+                    <th>Username</th>
                     <th>Email</th>
                     <th>Role</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
+                    @php
+                      $no=1;
+                      
+                    @endphp
                     @foreach ($users as $user)
                     <tr class="text-center">
-                        <td>{{ $user->id }}</td>
+                        <td>{{ $no++ }}</td>
                         <td>{{ $user->name }}</td>
+                        <td>{{ $user->username }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->role }}</td>
                         <td class="d-flex justify-content-center">
-                          <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST">
+                          <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" >
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger mx-2"><span class="fas fa-trash"></span></button>
+                            <button type="submit" class="btn btn-sm btn-danger mx-2" onclick="deleteUser({{ $user->id }})"><span class="fas fa-trash"></span></button>
                           </form>
-                          <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit" class="btn btn-sm btn-warning mx-2"><span class="fas fa-edit"></span></button>
-                          </form>
+                          <a href="{{ route('admin.edit',['id' => $user->id]) }}" class="btn btn-primary btn-sm">Edit</a>
                       </td>
                     </tr>
                     @endforeach
@@ -88,6 +90,24 @@
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#user-data_wrapper .col-md-6:eq(0)');
   });
+
+  function deleteUser(userId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            // Lakukan request penghapusan menggunakan AJAX atau form submission
+            $.ajax({
+                url: 'admin/users',
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Tampilkan alert atau lakukan refresh halaman jika perlu
+                    alert('User deleted successfully');
+                    location.reload(); // Contoh: refresh halaman
+                }
+            });
+        }
+    }
 </script>
 </body>
 </html>

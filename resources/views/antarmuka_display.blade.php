@@ -91,7 +91,7 @@
         <div class="small-box" id="{{ $loket->purpose->jenis }}" style="background-color: {{$data->box_ambil_color}} !important; color: {{$data->text_color}} !important;">
           <div class="inner">
             <h3>{{ $loket->name }}</h3>
-            <p>{{ $loket->purpose->keterangan }}</p>
+            <p>{{ $loket->purpose->keterangan }}</p> 
           </div>
           <div class="icon">
             <i class="fas fa-bookmark"></i>

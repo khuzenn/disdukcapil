@@ -27,13 +27,21 @@
                         <div class="card-header">
                             <h3 class="card-title">Tambah Pengguna</h3>
                         </div>
+<<<<<<< HEAD
                         <form id="quickForm" action="{{ route('register') }}" method="post" enctype="multipart/form-data">
+=======
+                        <form action="{{ route('register') }}" method="post" enctype="multipart/form-data">
+>>>>>>> 9b0112a6e0c25233cf2fb51cbda9103fae82d980
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Nama Lengkap</label>
                                     <div class="input-group">
+<<<<<<< HEAD
                                         <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control" placeholder="Nama Lengkap Pengguna" required autofocus>
+=======
+                                        <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control" placeholder="Nama Lengkap Pengguna"required autofocus>
+>>>>>>> 9b0112a6e0c25233cf2fb51cbda9103fae82d980
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-user"></span>
@@ -42,9 +50,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+<<<<<<< HEAD
                                     <label for="email">Email</label>
                                     <div class="input-group">
                                         <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control" placeholder="Email Pengguna" required autofocus>
+=======
+                                    <label for="username">Username</label>
+                                    <div class="input-group">
+                                        <input type="text" name="username" id="username" value="{{ old('username') }}" class="form-control" placeholder="Username Pengguna" required>
+>>>>>>> 9b0112a6e0c25233cf2fb51cbda9103fae82d980
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-envelope"></span>
@@ -53,6 +67,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+<<<<<<< HEAD
                                     <label for="no_telp">Loket</label>
                                     <div class="input-group">
                                         <select name="loket_id" id="loket_id" class="form-control">
@@ -61,6 +76,16 @@
                                             <option value="" class="form-control">2</option>
                                             <option value="" class="form-control">3</option>
                                         </select>
+=======
+                                    <label for="email">Email</label>
+                                    <div class="input-group">
+                                        <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control" placeholder="Email Pengguna" required>
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-envelope"></span>
+                                            </div>
+                                        </div>
+>>>>>>> 9b0112a6e0c25233cf2fb51cbda9103fae82d980
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -78,10 +103,35 @@
                                         </div>
                                     </div>
                                 </div>
+<<<<<<< HEAD
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <div class="input-group">
                                         <input type="password" name="password" id="password" class="form-control" placeholder="********" required autocomplete="new-password">
+=======
+
+                                <div class="form-group">
+                                    <label for="role">Loket</label>
+                                    <div class="input-group">
+                                        <select id="loket_id" name="loket_id" class="form-control">
+                                            @foreach ($lokets as $loket)
+                                                <option value="">Pilih Loket...</option>
+                                                <option value="{{ $loket->id }}">{{ $loket->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-th"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="****" required autocomplete="new-password">
+>>>>>>> 9b0112a6e0c25233cf2fb51cbda9103fae82d980
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-lock"></span>
@@ -92,7 +142,11 @@
                                 <div class="form-group">
                                     <label for="password_confirmation">Konfirmasi Password</label>
                                     <div class="input-group">
+<<<<<<< HEAD
                                         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="********" required autocomplete="new-password">
+=======
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="****" required autocomplete="new-password">
+>>>>>>> 9b0112a6e0c25233cf2fb51cbda9103fae82d980
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-lock"></span>
@@ -100,6 +154,7 @@
                                         </div>
                                     </div>
                                 </div>
+<<<<<<< HEAD
                                 <div class="form-group row">
                                     <!-- foto preview -->
                                     <div class="col-md-2">
@@ -112,6 +167,11 @@
                                             <input type="file" name="foto" id="foto" class="form-control" onchange="previewImage()">
                                         </div>
                                     </div>
+=======
+                                <div class="mt-4">
+                                    <label for="photo" :value="__('Photo Profile')" />
+                                    <input type="file" name="photo" id="photo" accept="image/*" class="block mt-1 w-full" />
+>>>>>>> 9b0112a6e0c25233cf2fb51cbda9103fae82d980
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -143,4 +203,8 @@
             preview.src = "../assets/img/default-image.png";
         }
     }
+<<<<<<< HEAD
 </script>
+=======
+</script>
+>>>>>>> 9b0112a6e0c25233cf2fb51cbda9103fae82d980

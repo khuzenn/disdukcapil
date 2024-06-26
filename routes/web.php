@@ -42,10 +42,11 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
     Route::get('operator/dashboard',[OperatorController::class,'index']);
     Route::get('admin/users', [UsersController::class, 'index'])->name('users');
-    Route::get('admin/create-users', [RegisteredUserController::class, 'create'])
-    ->name('admin.register');
+    Route::get('admin/create-users', [RegisteredUserController::class, 'create'])->name('admin.register');
     Route::post('admin/create-users', [RegisteredUserController::class, 'store']);
     Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
+    Route::get('/admin/edit', [UsersController::class, 'edit'])->name('admin.edit');
+    Route::put('/admin/update', [UsersController::class, 'update'])->name('admin.update');
     
     // Outlet Menu
     Route::get('admin/data-outlet', [OutletController::class, 'index'])->name('data-outlet');
