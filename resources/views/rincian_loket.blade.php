@@ -210,7 +210,6 @@
                                     <a href="#" class="btn btn-warning btn-block mb-2">Ubah Password</a>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                            
                                         <x-dropdown-link :href="route('logout')"
                                                 onclick="event.preventDefault();
                                                             this.closest('form').submit();">
@@ -318,7 +317,7 @@
     });
 
     tableAntrianAktifRefresh();
-    // var refreshAntrianAktifId = setInterval(tableAntrianAktifRefresh, 5000);
+    // var refreshAntrianAktifId = setInterval(tableAntrianAktifRefresh, 5000); 
     tableAntrianRefresh();
     // var refreshAntrianId = setInterval(tableAntrianRefresh, 5000);
 
@@ -398,7 +397,7 @@
         $('#table-antrian-aktif').DataTable({
             serverSide: true,
             ajax: {
-                url: "/tabel-antrian-aktif",
+                url: "tabel-antrian-aktif",
                 method: 'GET',
                 DataType: 'JSON'
             },
@@ -419,7 +418,7 @@
         $('#table-antrian').DataTable({
             serverSide: true,
             ajax: {
-                url: "/tabel-antrian",
+                url: "tabel-antrian",
                 method: 'GET',
                 DataType: 'JSON'
             },

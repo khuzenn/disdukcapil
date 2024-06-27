@@ -72,6 +72,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('admin/get-loket/{id}', [LoketController::class, 'getLoket'])->name('getLoket');
     Route::post('admin/update-loket/{id}', [LoketController::class, 'updateLoket'])->name('updateLoket');
     Route::get('admin/delete-loket/{id}', [LoketController::class, 'deleteLoket'])->name('deleteLoket');
+    Route::get('admin/get-user/{id}', [LoketController::class, 'getUserByLoket'])->name('getUserByLoket');
 
     // Data Antarmuka
     Route::get('admin/data-antarmuka', [AntarmukaController::class, 'index'])->name('data-antarmuka');
@@ -93,5 +94,9 @@ Route::middleware(['auth','role:admin'])->group(function () {
     
 });
 Route::middleware(['auth','role:operator'])->group(function () {
-    Route::get('operator/dashboard',[OperatorController::class,'index'])->name('operator.dashboard');
+    Route::get('operator/dashboard',[AdminController::class,'index'])->name('operator.dashboard');
+    Route::get('operator/rincian-loket',[OperatorController::class,'index'])->name('rincian-loket');
+    Route::get('operator/display-antrian', [DisplayAntrianController::class, 'index'])->name('display-antrian');
+    Route::get('operator/tabel-antrian-aktif', [RincianLoketController::class, 'antrianAktif'])->name('tabel-antrian-aktif');
+    Route::get('operator/tabel-antrian', [RincianLoketController::class, 'getAntrian'])->name('tabel-antrian');
 });

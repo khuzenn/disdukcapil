@@ -27,7 +27,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Edit Loket</h3>
                         </div>
-                        <form id="quickForm" action="/update-loket/{{$data->id}}" method="post" enctype="multipart/form-data">
+                        <form id="quickForm" action="update-loket/{{$data->id}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">

@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/purpose">Tujuan Outlet</a></li>
+                        <li class="breadcrumb-item"><a href="purpose">Tujuan Outlet</a></li>
                         <li class="breadcrumb-item active">Edit Tujuan Outlet</li>
                     </ol>
                 </div>
@@ -27,7 +27,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Edit Tujuan Outlet</h3>
                         </div>
-                        <form id="quickForm" action="/update-purpose/{{$data->id}}" method="post" enctype="multipart/form-data">
+                        <form id="quickForm" action="update-purpose/{{$data->id}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">

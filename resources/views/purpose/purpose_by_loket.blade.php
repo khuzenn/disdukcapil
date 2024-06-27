@@ -41,7 +41,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="/purpose" class="btn btn-sm btn-danger mt-2 mb-2"><i class="fa fa-chevron-left"></i>&nbsp Kembali</a>
+                <a href="purpose" class="btn btn-sm btn-danger mt-2 mb-2"><i class="fa fa-chevron-left"></i>&nbsp Kembali</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">

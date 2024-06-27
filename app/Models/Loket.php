@@ -32,4 +32,9 @@ class Loket extends Model
     {
         return $this->belongsTo(User::class,'loket_id');
     }
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }

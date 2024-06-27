@@ -97,7 +97,7 @@
             <i class="fas fa-bookmark"></i>
           </div>
           <a class="small-box-footer" id="antrian-{{ $loket->purpose->jenis }}" onclick="ambilAntrian(event, '{{ $loket->id }}')">
-            Ambil Antrian <i class="fas fa-arrow-circle-right"></i>
+            Ambil Antrian <i class="fas fa-arrow-circle-right"></i> 
           </a>
         </div>
       </div>
@@ -178,7 +178,7 @@
     function ambilAntrian(event, id_antrian) {
       event.preventDefault();
       $.ajax({
-        url: "/create-antrian",
+        url: "create-antrian",
         method: "post",
         data: {
           _token: '{{ csrf_token() }}',

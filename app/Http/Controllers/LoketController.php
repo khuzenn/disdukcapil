@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Loket;
 use App\Models\Purpose;
+use App\Models\User;
 
 class LoketController extends Controller
 {
@@ -73,8 +74,22 @@ class LoketController extends Controller
     }
 
     public function showRegistrationForm()
-{
-    $lokets = Loket::all();
-    return view('store', compact('lokets'));
-}
+    {
+        $lokets = Loket::all();
+        return view('store', compact('lokets'));
+    }
+
+    // Get user By Loket
+    public function getUserByLoket($id)
+    {
+        $loket = Loket::find($id);
+
+        if (!$loket) {
+            return redirect()->back()->with('error', 'Loket tidak ditemukan');
+        }
+
+        $user = $loket->user;
+
+        return view('/loket/user_loket', compact('loket','user'));
+    }
 }

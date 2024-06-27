@@ -44,6 +44,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Loket::class);
     }
-
-    
 }

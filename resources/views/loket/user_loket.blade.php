@@ -30,42 +30,32 @@
                 <a href="create-loket" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
               </div>
               <!-- /.card-header -->
+              @if($user->isNotEmpty())
               <div class="card-body">
-                <table id="data-purpose" class="table table-bordered table-hover">
+                <table id="data-user-loket" class="table table-bordered table-hover">
                   <thead>
                   <tr class="text-center">
                     <th>No</th>
-                    <th>Nama Loket</th>
+                    <th>Nama Lengkap</th>
                     <th>No Loket</th>
-                    <th>Kode Antrian</th>
-                    <th>Jenis Antrian</th>
-                    <th>Aksi</th>
+                    <th>Role</th>
                   </tr>
                   </thead>
                   <tbody>
-                    @php
-                      $no = 1;
-                    @endphp
-                    @foreach ($data as $loket)
+                    @foreach($user as $index => $user)
                     <tr class="text-center">
-                        <td>{{ $no++ }}</td>
-                        <td>{{ $loket->name }}</td>
-                        <td>{{ $loket->nomor }}</td>
-                        @php
-                            $purpose = App\Models\Purpose::find($loket->purpose_id); 
-                        @endphp
-                        <td>{{ $purpose->kode }}</td>
-                        <td>{{ $purpose->jenis }}</td>
-                        <td>
-                            <a href="get-user/{{ $loket->id }}" class="btn btn-sm btn-success"><span class="fas fa-user"></span></a>
-                            <a href="get-loket/{{ $loket->id }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
-                            <a href="delete-loket/{{ $loket->id }}" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
-                        </td>
+                        <td>{{ $index + 1 }}</td> 
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->loket_id }}</td>
+                        <td>{{ $user->role }}</td>
                     </tr>
                     @endforeach
                   </tbody>
                 </table>
               </div>
+              @else
+                <p>Tidak ada pengguna yang terkait dengan loket ini.</p>
+              @endif
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
@@ -82,7 +72,7 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $("#data-purpose").DataTable({
+    $("#data-user-loket").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#data-purpose_wrapper .col-md-6:eq(0)');
