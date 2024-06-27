@@ -55,7 +55,7 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->role }}</td>
                         <td class="d-flex justify-content-center">
-                          <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" >
+                          <form action="{{ route('admin.users.destroy', ['user' => $user->id]) }}" method="POST" >
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger mx-2" onclick="deleteUser({{ $user->id }})"><span class="fas fa-trash"></span></button>

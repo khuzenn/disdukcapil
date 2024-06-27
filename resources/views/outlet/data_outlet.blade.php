@@ -41,7 +41,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="/create-outlet" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
+                <a href="create-outlet" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -75,9 +75,8 @@
                               </div>
                           </td>
                           <td>
-                              <a href="/get-outlet/{{ $outlet->id }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
-                              <a href="#" class="btn btn-sm btn-success"><span class="fas fa-unlock-alt"></span></a>
-                              <a href="/delete-outlet/{{ $outlet->id }}" class="btn btn-sm btn-danger" onclick="deleteOutlet({{ $outlet->id }})"><span class="fas fa-trash"></span></a>
+                              <a href="{{ route('admin.getOutlet',['id' => $outlet->id]) }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
+                              <a href="{{ route('admin.deleteOutlet',['id' => $outlet->id]) }}" class="btn btn-sm btn-danger" onclick="deleteOutlet({{ $outlet->id }})"><span class="fas fa-trash"></span></a>
                           </td>
                       </tr>
                     @endforeach

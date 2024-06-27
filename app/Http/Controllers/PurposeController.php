@@ -29,7 +29,7 @@ class PurposeController extends Controller
 
         Purpose::create($validatedData);
 
-        return redirect()->route('purpose')->with('success', 'Tujuan Outlet Berhasil Ditambahkan');
+        return redirect()->route('admin.purpose')->with('success', 'Tujuan Outlet Berhasil Ditambahkan');
     }
 
     public function getPurpose($id)
@@ -44,7 +44,7 @@ class PurposeController extends Controller
         $data = Purpose::find($id);
 
         if (!$data) {
-            return redirect()->route('purpose')->with('error', 'Tujuan Loket tidak ditemukan');
+            return redirect()->route('admin.purpose')->with('error', 'Tujuan Loket tidak ditemukan');
         }
 
         $validatedData = $request->validate([
@@ -59,15 +59,15 @@ class PurposeController extends Controller
 
         $data->save();
 
-        return redirect()->route('purpose')->with('success', 'Tujuan Loket berhasil diupdate');
+        return redirect()->route('admin.purpose')->with('success', 'Tujuan Loket berhasil diupdate');
     }
 
     public function deletePurpose($id)
     {
         $data = Purpose::find($id);
-        $data->delete();
+        $data->delete($id);
 
-        return redirect()->route('purpose')->with('success', 'Tujuan Loket berhasil dihapus');
+        return redirect()->route('admin.purpose')->with('success', 'Tujuan Loket berhasil dihapus');
     }
 
     public function getDataLoket($purpose_id)

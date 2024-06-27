@@ -37,7 +37,7 @@ class AntarmukaController extends Controller
 
         Antarmuka::create($validatedData);
 
-        return redirect()->route('data-antarmuka')->with('success', 'Antarmuka berhasil ditambahkan');
+        return redirect()->route('admin.data-antarmuka')->with('success', 'Antarmuka berhasil ditambahkan');
     }
 
     public function getAntarmuka($id)
@@ -53,7 +53,7 @@ class AntarmukaController extends Controller
         $data = Antarmuka::find($id);
 
         if (!$data) {
-            return redirect()->route('data-antarmuka')->with('error', 'Antarmuka tidak ditemukan');
+            return redirect()->route('admin.data-antarmuka')->with('error', 'Antarmuka tidak ditemukan');
         }
 
         $validatedData = $request->validate([
@@ -67,7 +67,7 @@ class AntarmukaController extends Controller
 
         $data->update($validatedData);
 
-        return redirect()->route('data-antarmuka')->with('success', 'Antarmuka berhasil diupdate');
+        return redirect()->route('admin.data-antarmuka')->with('success', 'Antarmuka berhasil diupdate');
     }
 
 
@@ -76,6 +76,6 @@ class AntarmukaController extends Controller
         $data = Antarmuka::find($id);
         $data->delete();
 
-        return redirect()->route('data-antarmuka')->with('success', 'Loket berhasil dihapus');
+        return redirect()->route('admin.data-antarmuka')->with('success', 'Loket berhasil dihapus');
     }
 }

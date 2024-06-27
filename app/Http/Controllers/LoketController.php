@@ -31,7 +31,7 @@ class LoketController extends Controller
 
         Loket::create($validatedData);
 
-        return redirect()->route('data-loket')->with('success', 'Loket berhasil ditambahkan');
+        return redirect()->route('admin.data-loket')->with('success', 'Loket berhasil ditambahkan');
     }
 
     public function getLoket($id)
@@ -47,7 +47,7 @@ class LoketController extends Controller
         $data = Loket::find($id);
 
         if (!$data) {
-            return redirect()->route('data-loket')->with('error', 'Loket tidak ditemukan');
+            return redirect()->route('admin.data-loket')->with('error', 'Loket tidak ditemukan');
         }
 
         $validatedData = $request->validate([
@@ -62,15 +62,15 @@ class LoketController extends Controller
 
         $data->save();
 
-        return redirect()->route('data-loket')->with('success', 'Loket berhasil diupdate');
+        return redirect()->route('admin.data-loket')->with('success', 'Loket berhasil diupdate');
     }
 
     public function deleteLoket($id)
     {
         $data = Loket::find($id);
-        $data->delete();
+        $data->delete($id);
 
-        return redirect()->route('data-loket')->with('success', 'Loket berhasil dihapus');
+        return redirect()->route('admin.data-loket')->with('success', 'Loket berhasil dihapus');
     }
 
     public function showRegistrationForm()
