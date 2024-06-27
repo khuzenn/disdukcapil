@@ -41,7 +41,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="/create-purpose" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
+                <a href="create-purpose" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -66,9 +66,9 @@
                         <td>{{ $purpose->jenis }}</td>
                         <td>{{ $purpose->keterangan }}</td>
                         <td>
-                            <a href="/get-purpose-by-loket/{{ $purpose->id }}" class="btn btn-sm btn-success"><span class="fas fa-th"></span></a>
-                            <a href="/get-purpose/{{ $purpose->id }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
-                            <a href="/delete-purpose/{{ $purpose->id }}" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
+                            <a href="{{ route('admin.getDataLoket',['id' => $purpose->id]) }}" class="btn btn-sm btn-success"><span class="fas fa-th"></span></a>
+                            <a href="{{ route('admin.getPurpose',['id' => $purpose->id]) }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
+                            <a href="{{ route('admin.deletePurpose',['id' => $purpose->id]) }}" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
                         </td>
                     </tr>
                     @endforeach

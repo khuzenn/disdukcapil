@@ -27,7 +27,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Tambah Antarmuka</h3>
                         </div>
-                        <form id="quickForm" action="/addAntarmuka" method="post" enctype="multipart/form-data">
+                        <form id="quickForm" action="{{ route('admin.updateAntarmuka',['id' => $data->id]) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">

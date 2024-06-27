@@ -27,7 +27,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Edit Tujuan Outlet</h3>
                         </div>
-                        <form id="quickForm" action="/update-purpose/{{$data->id}}" method="post" enctype="multipart/form-data">
+                        <form id="quickForm" action="{{ route('admin.updatePurpose',['id' => $data->id]) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">

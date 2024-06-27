@@ -97,6 +97,6 @@ class OutletController extends Controller
         $data = Outlet::find($id);
         $data->delete();
 
-        return redirect()->route('data-outlet')->with('success', 'Outlet berhasil dihapus');
+        return redirect()->route('admin.data-outlet')->with('success', 'Outlet berhasil dihapus');
     }
 }

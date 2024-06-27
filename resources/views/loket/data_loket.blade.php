@@ -27,7 +27,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="/create-loket" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
+                <a href="create-loket" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -58,8 +58,8 @@
                         <td>{{ $purpose->jenis }}</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-success"><span class="fas fa-user"></span></a>
-                            <a href="/get-loket/{{ $loket->id }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
-                            <a href="/delete-loket/{{ $loket->id }}" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
+                            <a href="{{ route('admin.getLoket',['id' => $loket->id]) }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
+                            <a href="{{ route('admin.deleteLoket',['id' => $loket->id]) }}" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
                         </td>
                     </tr>
                     @endforeach

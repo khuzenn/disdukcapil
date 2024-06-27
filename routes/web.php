@@ -38,60 +38,66 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth','role:admin'])->group(function () {
-    Route::get('admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard',[AdminController::class,'index'])->name('dashboard');
     Route::get('operator/dashboard',[OperatorController::class,'index']);
-    Route::get('admin/users', [UsersController::class, 'index'])->name('users');
-    Route::get('admin/create-users', [RegisteredUserController::class, 'create'])->name('admin.register');
-    Route::post('admin/create-users', [RegisteredUserController::class, 'store']);
+    Route::get('/users', [UsersController::class, 'index'])->name('users');
+    Route::get('/create-users', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('/create-users', [RegisteredUserController::class, 'store']);
     Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
-    Route::get('/admin/edit', [UsersController::class, 'edit'])->name('admin.edit');
-    Route::put('/admin/update', [UsersController::class, 'update'])->name('admin.update');
+    Route::get('/edit', [UsersController::class, 'edit'])->name('edit');
+    Route::put('//update', [UsersController::class, 'update'])->name('update');
     
     // Outlet Menu
-    Route::get('admin/data-outlet', [OutletController::class, 'index'])->name('data-outlet');
-    Route::get('admin/create-outlet', [OutletController::class, 'create_outlet'])->name('create-outlet');
-    Route::post('admin/addOutlet', [OutletController::class, 'addOutlet'])->name('addOutlet');
-    Route::get('admin/get-outlet/{id}', [OutletController::class, 'getOutlet'])->name('getOutlet');
-    Route::post('admin/update-outlet/{id}', [OutletController::class, 'updateOutlet'])->name('updateOutlet');
-    Route::get('admin/delete-outlet/{id}', [OutletController::class, 'deleteOutlet'])->name('deleteOutlet');
+    Route::get('/data-outlet', [OutletController::class, 'index'])->name('data-outlet');
+    Route::get('/create-outlet', [OutletController::class, 'create_outlet'])->name('create-outlet');
+    Route::post('/addOutlet', [OutletController::class, 'addOutlet'])->name('addOutlet');
+    Route::get('/get-outlet/{id}', [OutletController::class, 'getOutlet'])->name('getOutlet');
+    Route::post('/update-outlet/{id}', [OutletController::class, 'updateOutlet'])->name('updateOutlet');
+    Route::get('/delete-outlet/{id}', [OutletController::class, 'deleteOutlet'])->name('deleteOutlet');
 
     // Purpose Menu
-    Route::get('admin/purpose', [PurposeController::class, 'index'])->name('purpose');
-    Route::get('admin/create-purpose', [PurposeController::class, 'create_purpose'])->name('create-purpose');
-    Route::post('admin/addPurpose', [PurposeController::class, 'addPurpose'])->name('addPurpose');
-    Route::get('admin/get-purpose/{id}', [PurposeController::class, 'getPurpose'])->name('getPurpose');
-    Route::get('admin/get-purpose-by-loket/{id}', [PurposeController::class, 'getDataLoket'])->name('getDataLoket');
-    Route::post('admin/update-purpose/{id}', [PurposeController::class, 'updatePurpose'])->name('updatePurpose');
-    Route::get('admin/delete-purpose/{id}', [PurposeController::class, 'deletePurpose'])->name('deletePurpose');
+    Route::get('/purpose', [PurposeController::class, 'index'])->name('purpose');
+    Route::get('/create-purpose', [PurposeController::class, 'create_purpose'])->name('create-purpose');
+    Route::post('/addPurpose', [PurposeController::class, 'addPurpose'])->name('addPurpose');
+    Route::get('/get-purpose/{id}', [PurposeController::class, 'getPurpose'])->name('getPurpose');
+    Route::get('/get-purpose-by-loket/{id}', [PurposeController::class, 'getDataLoket'])->name('getDataLoket');
+    Route::post('/update-purpose/{id}', [PurposeController::class, 'updatePurpose'])->name('updatePurpose');
+    Route::get('/delete-purpose/{id}', [PurposeController::class, 'deletePurpose'])->name('deletePurpose');
 
     // Loket Menu
-    Route::get('admin/data-loket', [LoketController::class, 'index'])->name('data-loket');
-    Route::get('admin/create-loket', [LoketController::class, 'create_loket'])->name('create-loket');
-    Route::post('admin/addLoket', [LoketController::class, 'addLoket'])->name('addLoket');
-    Route::get('admin/get-loket/{id}', [LoketController::class, 'getLoket'])->name('getLoket');
-    Route::post('admin/update-loket/{id}', [LoketController::class, 'updateLoket'])->name('updateLoket');
-    Route::get('admin/delete-loket/{id}', [LoketController::class, 'deleteLoket'])->name('deleteLoket');
+    Route::get('/data-loket', [LoketController::class, 'index'])->name('data-loket');
+    Route::get('/create-loket', [LoketController::class, 'create_loket'])->name('create-loket');
+    Route::post('/addLoket', [LoketController::class, 'addLoket'])->name('addLoket');
+    Route::get('/get-loket/{id}', [LoketController::class, 'getLoket'])->name('getLoket');
+    Route::post('/update-loket/{id}', [LoketController::class, 'updateLoket'])->name('updateLoket');
+    Route::get('/delete-loket/{id}', [LoketController::class, 'deleteLoket'])->name('deleteLoket');
 
     // Data Antarmuka
-    Route::get('admin/data-antarmuka', [AntarmukaController::class, 'index'])->name('data-antarmuka');
-    Route::get('admin/create-antarmuka', [AntarmukaController::class, 'create_antarmuka'])->name('create-antarmuka');
-    Route::post('admin/addAntarmuka', [AntarmukaController::class, 'addAntarmuka'])->name('addAntarmuka');
-    Route::get('admin/get-antarmuka/{id}', [AntarmukaController::class, 'getAntarmuka'])->name('getAntarmuka');
-    Route::post('admin/update-antarmuka/{id}', [AntarmukaController::class, 'updateAntarmuka'])->name('updateAntarmuka');
-    Route::get('admin/delete-antarmuka/{id}', [AntarmukaController::class, 'deleteAntarmuka'])->name('deleteAntarmuka');
+    Route::get('/data-antarmuka', [AntarmukaController::class, 'index'])->name('data-antarmuka');
+    Route::get('/create-antarmuka', [AntarmukaController::class, 'create_antarmuka'])->name('create-antarmuka');
+    Route::post('/addAntarmuka', [AntarmukaController::class, 'addAntarmuka'])->name('addAntarmuka');
+    Route::get('/get-antarmuka/{id}', [AntarmukaController::class, 'getAntarmuka'])->name('getAntarmuka');
+    Route::post('/update-antarmuka/{id}', [AntarmukaController::class, 'updateAntarmuka'])->name('updateAntarmuka');
+    Route::get('/delete-antarmuka/{id}', [AntarmukaController::class, 'deleteAntarmuka'])->name('deleteAntarmuka');
 
     // Rincian Loket
-    Route::get('admin/rincian-loket', [RincianLoketController::class, 'index'])->name('rincian-loket');
-    Route::get('admin/display-antrian', [DisplayAntrianController::class, 'index'])->name('display-antrian');
-    Route::get('admin/tabel-antrian-aktif', [RincianLoketController::class, 'antrianAktif'])->name('tabel-antrian-aktif');
-    Route::get('admin/tabel-antrian', [RincianLoketController::class, 'getAntrian'])->name('tabel-antrian');
+    Route::get('/rincian-loket', [RincianLoketController::class, 'index'])->name('rincian-loket');
+    Route::get('/display-antrian', [DisplayAntrianController::class, 'index'])->name('display-antrian');
+    Route::get('/tabel-antrian-aktif', [RincianLoketController::class, 'antrianAktif'])->name('tabel-antrian-aktif');
+    Route::get('/tabel-antrian', [RincianLoketController::class, 'getAntrian'])->name('tabel-antrian');
 
     // Antrian
-    Route::get('admin/antarmuka-display', [AntrianController::class, 'index'])->name('antarmuka-display');
-    Route::post('admin/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
-    
+    Route::get('/antarmuka-display', [AntrianController::class, 'index'])->name('antarmuka-display');
+    Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
+        
 });
-Route::middleware(['auth','role:operator'])->group(function () {
+Route::middleware(['auth','role:operator,admin'])->group(function () {
     Route::get('operator/dashboard',[OperatorController::class,'index'])->name('operator.dashboard');
+    Route::get('/antarmuka-display', [AntrianController::class, 'index'])->name('antarmuka-display');
+    Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
+    Route::get('/rincian-loket', [RincianLoketController::class, 'index'])->name('rincian-loket');
+    Route::get('/display-antrian', [DisplayAntrianController::class, 'index'])->name('display-antrian');
+    Route::get('/tabel-antrian-aktif', [RincianLoketController::class, 'antrianAktif'])->name('tabel-antrian-aktif');
+    Route::get('/tabel-antrian', [RincianLoketController::class, 'getAntrian'])->name('tabel-antrian');
 });

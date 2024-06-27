@@ -27,7 +27,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="/create-antarmuka" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
+                <a href="create-antarmuka" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -60,9 +60,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-success"><span class="fas fa-check-square"></span></a>
-                            <a href="/get-antarmuka/{{ $antarmuka->id }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
-                            <a href="/delete-antarmuka/{{ $antarmuka->id }}" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
+                            <a href="{{ route('admin.deleteAntarmuka',['id' => $antarmuka->id]) }}" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
                         </td>
                     </tr>
                     @endforeach

@@ -109,7 +109,7 @@
                         <div class="icon">
                             <i class="fas fa-bookmark"></i>
                         </div>
-                        <a href="/antarmuka-display" target="_blank" class="small-box-footer">
+                        <a href="antarmuka-display" target="_blank" class="small-box-footer">
                             More Info <i class=" fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -124,7 +124,7 @@
                         <div class="icon">
                             <i class="fas fa-bookmark"></i>
                         </div>
-                        <a href="/display-antrian" target="_blank" class="small-box-footer">
+                        <a href="display-antrian" target="_blank" class="small-box-footer">
                             More Info <i class=" fas fa-arrow-circle-right"></i>
                         </a>
                     </div>

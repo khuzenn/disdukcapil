@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
             $user->update(['photo' => $path]);
         }
         event(new Registered($user));
-        return redirect()->route('users')->with('success', 'Outlet berhasil ditambahkan');
+        return redirect()->route('admin.users')->with('success', 'Outlet berhasil ditambahkan');
     }
     
 }

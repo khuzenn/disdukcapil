@@ -27,7 +27,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Tambah Tujuan Outlet</h3>
                         </div>
-                        <form id="quickForm" action="/addPurpose" method="post" enctype="multipart/form-data">
+                        <form id="quickForm" action="addPurpose" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
