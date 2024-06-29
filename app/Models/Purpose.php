@@ -17,4 +17,9 @@ class Purpose extends Model
     {
         return $this->hasMany(Antrian::class);
     }
+
+    public function lokets()
+    {
+        return $this->hasMany(Loket::class, 'purpose_id');
+    }
 }

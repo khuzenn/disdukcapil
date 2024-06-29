@@ -46,44 +46,44 @@ class UsersController extends Controller
     }
 
     public function update(Request $request)
-{
-    $id = $request->query('id');
-    $user = User::findOrFail($id);
+    {
+        $id = $request->query('id');
+        $user = User::findOrFail($id);
 
-    $rules = [
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-        'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
-        'role' => ['required', 'string', 'in:operator,admin'],
-        'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-        'loket_id' => ['nullable', 'exists:lokets,id'],
-    ];
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'role' => ['required', 'string', 'in:operator,admin'],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'loket_id' => ['nullable', 'exists:lokets,id'],
+        ];
 
-    // Hanya tambahkan validasi password jika ada input password baru
-    if ($request->filled('password')) {
-        $rules['password'] = ['required', 'confirmed', Rules\Password::defaults()];
+        // Hanya tambahkan validasi password jika ada input password baru
+        if ($request->filled('password')) {
+            $rules['password'] = ['required', 'confirmed', Rules\Password::defaults()];
+        }
+
+        $request->validate($rules);
+
+        // Proses update user
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->username = $request->username;
+        $user->role = $request->role;
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('profile_photos', 'public');
+            $user->update(['photo' => $path]);
+        }
+        $user->loket_id = $request->loket_id;
+
+        // Update password jika ada input password baru
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->route('admin.users')->with('success', 'Outlet berhasil ditambahkan');
     }
-
-    $request->validate($rules);
-
-    // Proses update user
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->username = $request->username;
-    $user->role = $request->role;
-    if ($request->hasFile('photo')) {
-        $path = $request->file('photo')->store('profile_photos', 'public');
-        $user->update(['photo' => $path]);
-    }
-    $user->loket_id = $request->loket_id;
-
-    // Update password jika ada input password baru
-    if ($request->filled('password')) {
-        $user->password = bcrypt($request->password);
-    }
-
-    $user->save();
-
-    return redirect()->route('users')->with('success', 'Outlet berhasil ditambahkan');
-}
 }

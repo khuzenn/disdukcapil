@@ -28,7 +28,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Edit Outlet</h3>
                         </div>
-                        <form id="quickForm" action="/update-outlet/{{$data->id}}" method="post" enctype="multipart/form-data">
+                        <form id="quickForm" action="{{ route('admin.updateOutlet',['id' => $data->id]) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">

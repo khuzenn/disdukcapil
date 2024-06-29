@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Outlet;
 use App\Models\Antrian;
 use App\Models\Purpose;
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 class RincianLoketController extends Controller

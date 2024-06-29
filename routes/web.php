@@ -46,7 +46,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/create-users', [RegisteredUserController::class, 'store']);
     Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
     Route::get('/edit', [UsersController::class, 'edit'])->name('edit');
-    Route::put('//update', [UsersController::class, 'update'])->name('update');
+    Route::put('/update', [UsersController::class, 'update'])->name('update');
     
     // Outlet Menu
     Route::get('/data-outlet', [OutletController::class, 'index'])->name('data-outlet');
@@ -72,6 +72,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/get-loket/{id}', [LoketController::class, 'getLoket'])->name('getLoket');
     Route::post('/update-loket/{id}', [LoketController::class, 'updateLoket'])->name('updateLoket');
     Route::get('/delete-loket/{id}', [LoketController::class, 'deleteLoket'])->name('deleteLoket');
+    Route::get('/user-loket/{id}', [LoketController::class, 'getUserLoket'])->name('getUserLoket');
 
     // Data Antarmuka
     Route::get('/data-antarmuka', [AntarmukaController::class, 'index'])->name('data-antarmuka');
@@ -98,6 +99,8 @@ Route::middleware(['auth','role:operator,admin'])->group(function () {
     Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
     Route::get('/rincian-loket', [RincianLoketController::class, 'index'])->name('rincian-loket');
     Route::get('/display-antrian', [DisplayAntrianController::class, 'index'])->name('display-antrian');
-    Route::get('/tabel-antrian-aktif', [RincianLoketController::class, 'antrianAktif'])->name('tabel-antrian-aktif');
-    Route::get('/tabel-antrian', [RincianLoketController::class, 'getAntrian'])->name('tabel-antrian');
+    Route::get('/tabel-antrian-aktif', [AntrianController::class, 'antrianAktif'])->name('getAntrianAktifData');
+    Route::get('/tabel-antrian', [AntrianController::class, 'getAntrian'])->name('getAntrianData');
+    Route::post('/panggil-antrian', [AntrianController::class, 'panggilAntrian'])->name('panggilAntrian');
+    Route::post('/action-panggil', [AntrianController::class, 'actionPanggil'])->name('actionPanggil');
 });

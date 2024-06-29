@@ -30,7 +30,7 @@
                 <a href="create-loket" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
               </div>
               <!-- /.card-header -->
-              @if($user->isNotEmpty())
+              @if($users->isNotEmpty())
               <div class="card-body">
                 <table id="data-user-loket" class="table table-bordered table-hover">
                   <thead>
@@ -42,11 +42,11 @@
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach($user as $index => $user)
+                    @foreach($users as $index => $user) 
                     <tr class="text-center">
                         <td>{{ $index + 1 }}</td> 
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->loket_id }}</td>
+                        <td>{{ optional($user->loket)->nomor ?? 'N/A' }}</td>
                         <td>{{ $user->role }}</td>
                     </tr>
                     @endforeach

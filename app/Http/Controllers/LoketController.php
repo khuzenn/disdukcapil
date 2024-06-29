@@ -80,16 +80,10 @@ class LoketController extends Controller
     }
 
     // Get user By Loket
-    public function getUserByLoket($id)
+    public function getUserLoket($loket_id)
     {
-        $loket = Loket::find($id);
+        $users = User::where('loket_id', $loket_id)->with('loket')->get();
 
-        if (!$loket) {
-            return redirect()->back()->with('error', 'Loket tidak ditemukan');
-        }
-
-        $user = $loket->user;
-
-        return view('/loket/user_loket', compact('loket','user'));
+        return view('/loket/user_loket', compact('users')); 
     }
 }

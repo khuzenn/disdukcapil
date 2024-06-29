@@ -57,7 +57,7 @@
                         <td>{{ $purpose->kode }}</td>
                         <td>{{ $purpose->jenis }}</td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-success"><span class="fas fa-user"></span></a>
+                            <a href="{{ route('admin.getUserLoket',['id' => $loket->id]) }}" class="btn btn-sm btn-success"><span class="fas fa-user"></span></a>
                             <a href="{{ route('admin.getLoket',['id' => $loket->id]) }}" class="btn btn-sm btn-warning"><span class="fas fa-edit"></span></a>
                             <a href="{{ route('admin.deleteLoket',['id' => $loket->id]) }}" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span></a>
                         </td>

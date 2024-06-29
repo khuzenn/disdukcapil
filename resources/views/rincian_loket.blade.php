@@ -127,7 +127,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -174,8 +173,8 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <button class="btn btn-primary " type="button" id="panggil" data-users="1">Panggil (Enter)</button>
-                                <button class="btn btn-success " type="button" id="panggil-ulang" data-users="1">Ulangi (F9)</button>
+                                <button class="btn btn-primary " type="button" id="panggil" data-users="{{ $user->id }}">Panggil (Enter)</button> 
+                                <button class="btn btn-success " type="button" id="panggil-ulang" data-users="{{ $user->id }}">Ulangi (F9)</button>
                             </div>
                         </div>
                         <div class="card card-primary card-outline">
@@ -192,25 +191,31 @@
                             </div>
                             <div class="card-body">
                                 <div class="row justify-content-center">
-                                    <img src="/assets/logo/1718809145.png" alt="" class="img-thumbnail" width="100">
+                                @if (Auth::user()->photo)
+                                    <img src="{{ asset('../storage/' . Auth::user()->photo) }}" alt="" class="img-thumbnail" width="100">
+                                @endif
                                 </div>
-                                <h3 class="profile-username text-center">Khuzen</h3>
-                                <p class="text-muted text-center">khuzen123</p>
+                                @if ($user)
+                                <h3 class="profile-username text-center">{{ $user->name }}</h3> 
+                                <p class="text-muted text-center">{{ $user->username }}</p>
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
-                                        <b>Nomor Loket</b><a class="float-right">2</a>
+                                        <b>Nomor Loket</b><a class="float-right">{{ $user->loket->nomor ?? 'N/A' }}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Jenis Loket</b><a class="float-right">Kode (K) - Pelayanan KTP</a>
+                                        <b>Jenis Loket</b><a class="float-right">Kode ({{ $purposeKode  }}) - {{ $purposeKeterangan  }}</a>
                                     </li>
                                 </ul>
+                                @else
+                                <p>not found</p>
+                                @endif
                                 <div class="row justify-content-center">
                                     <a href="#" class="btn btn-success btn-block mb-2">Kembali ke Menu</a>
                                     <a href="#" class="btn btn-secondary btn-block mb-2">Upload Foto Profil</a>
                                     <a href="#" class="btn btn-warning btn-block mb-2">Ubah Password</a>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <x-dropdown-link :href="route('logout')"
+                                        <x-dropdown-link :href="route('logout')" class="btn btn-danger btn-block mb-2"
                                                 onclick="event.preventDefault();
                                                             this.closest('form').submit();">
                                             {{ __('Log Out') }}
@@ -308,148 +313,162 @@
 </script>
 
 <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $(document).ready(function(){
-    var Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000
-    });
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
 
-    tableAntrianAktifRefresh();
-     var refreshAntrianAktifId = setInterval(tableAntrianAktifRefresh, 5000);
-    tableAntrianRefresh();
-     var refreshAntrianId = setInterval(tableAntrianRefresh, 5000);
+        tableAntrianAktifRefresh();
+        tableAntrianRefresh();
 
-    $(document).keyup(function(event) {
-        if (event.keyCode === 13) {
-            $("#panggil").click();
-        }
-    });
+        $(document).keyup(function(event) {
+            if (event.keyCode === 13) { // Enter key
+                $("#panggil").click();
+            }
+        });
 
-    $(document).keyup(function(event) {
-        if (event.keyCode === 120) {
-            panggilUlang();
-        }
-    });
-                
-    $('#panggil').on('click', function(){
-        var id_user = $('#panggil').data('users');
-
-        $.ajax({
-            url: "",
-            method: 'POST',
-            data: {
-                _token: '',
-                user_id: id_user
-            },
-            dataType: 'json',
-            success: function(data){
-                var nomor_loket = data['nomor_loket'];
-                var antrian_sebelumnya = data['antrian_sebelumnya'];
-                var antrian_panggil = data['antrian_panggil'];
-
+        $(document).keyup(function(event) {
+            if (event.keyCode === 120) { // F9 key
                 panggilUlang();
-                tableAntrianAktifRefresh();
-                tableAntrianRefresh();
             }
         });
-    });
 
-    $('#panggil-ulang').on('click', function(){
-        panggilUlang();
-    });
+        $('#panggil').on('click', function(){
+            var id_user = $('#panggil').data('users');
 
-    function panggilUlang(){
-        $('#setOverlay').append('<div class="overlay" id="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i></div>');
-        var id_user = $('#panggil-ulang').data('users');
+            $.ajax({
+                url: "{{ route('panggilAntrian') }}",
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    user_id: id_user
+                },
+                dataType: 'json',
+                success: function(data){
+                    var nomor_loket = data.nomor_loket;
+                    var antrian_panggil = data.nomor_antrian;
 
-        $.ajax({
-            url: "",
-            method: 'POST',
-            data: {
-                _token: '',
-                user_id: id_user
-            },
-            dataType: 'json',
-            success: function(data){
-                var nomor_loket = data['nomor_loket'];
-                var nomor_antrian = data['nomor_antrian'];
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Berhasil memanggil No. antrian ' + antrian_panggil + ' menuju loket ' + nomor_loket,
+                    });
 
-                actionPanggil(nomor_antrian);
-
+                    tableAntrianAktifRefresh();
+                    tableAntrianRefresh();
+                }
+            }).fail(function(){
                 Toast.fire({
-                    icon: 'success',
-                    title: 'Berhasil memanggil No. antrian '+nomor_antrian+' menuju loket '+nomor_loket,
+                    icon: 'error',
+                    title: 'Tidak ada antrian yang tersedia.',
                 })
-            }
-        }).fail(function(){
-            Toast.fire({
-            icon: 'error',
-            title: 'No. antrian gagal dipanggil! Silahkan cek koneksi database aplikasi.',
-            })
-        }).always(function(){
-            $("#overlay").remove();
+            });
         });
-    }
 
-    function tableAntrianAktifRefresh(){
-        $('#table-antrian-aktif').DataTable({
-            serverSide: true,
-            ajax: {
-                url: "tabel-antrian-aktif",
-                method: 'GET',
-                DataType: 'JSON'
-            },
-            order: [[1,'asc']],
-            // scrollX: true,
-            processing: true,
-            columns: [
-                {data: 'nomor_antrian'},
-                {data: 'nomor_loket'},
-                {data: 'jenis_transaksi'}
-            ],
-            "responsive" : true,
-            "bDestroy": true
+        $('#panggil-ulang').on('click', function(){
+            panggilUlang();
         });
-    }
 
-    function tableAntrianRefresh(){
-        $('#table-antrian').DataTable({
-            serverSide: true,
-            ajax: {
-                url: "tabel-antrian",
-                method: 'GET',
-                DataType: 'JSON'
-            },
-            order: [[1,'asc']],
-            // scrollX: true,
-            processing: true,
-            columns: [
-                {data: 'jenis_transaksi'},
-                {data: 'kode_antrian'},
-                {data: 'jumlah_antrian'}
-            ],
-            "responsive" : true,
-            "bDestroy": true
-        });
-    }
+        function panggilUlang(){
+            $('#setOverlay').append('<div class="overlay" id="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i></div>');
+            var id_user = $('#panggil-ulang').data('users');
 
-    function actionPanggil(nomor_antrian){
-        $.ajax({
-            url: "",
-            method: 'POST',
-            data: {
-                _token: '',
-                nomor_antrian: nomor_antrian
-            },
-            dataType: 'json',
-            success: function(data){
-                var status_code = data['status_code'];
-            }
-        });
-    }
-});
+            $.ajax({
+                url: "{{ route('panggilAntrian') }}",
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    user_id: id_user
+                },
+                dataType: 'json',
+                success: function(data){
+                    var nomor_loket = data.nomor_loket;
+                    var nomor_antrian = data.nomor_antrian;
+
+                    actionPanggil(nomor_antrian);
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Berhasil memanggil ulang No. antrian ' + nomor_antrian + ' menuju loket ' + nomor_loket,
+                    });
+
+                    tableAntrianAktifRefresh();
+                    tableAntrianRefresh();
+                }
+            }).fail(function(){
+                Toast.fire({
+                    icon: 'error',
+                    title: 'No. antrian gagal dipanggil! Silahkan cek koneksi database aplikasi.',
+                })
+            }).always(function(){
+                $("#overlay").remove();
+            });
+        }
+
+        function tableAntrianAktifRefresh(){
+            $('#table-antrian-aktif').DataTable({
+                serverSide: true,
+                ajax: {
+                    url: "/tabel-antrian-aktif",
+                    method: 'GET',
+                    dataType: 'json'
+                },
+                order: [[0, 'asc']],
+                processing: true,
+                columns: [
+                    {data: 'nomor_antrian'},
+                    {data: 'nomor_loket'},
+                    {data: 'jenis_transaksi'}
+                ],
+                responsive: true,
+                destroy: true
+            });
+        }
+
+        function tableAntrianRefresh(){
+            $('#table-antrian').DataTable({
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('getAntrianData') }}",
+                    method: 'GET',
+                    dataType: 'json'
+                },
+                order: [[0, 'asc']],
+                processing: true,
+                columns: [
+                    {data: 'jenis_transaksi'},
+                    {data: 'kode_antrian'},
+                    {data: 'jumlah_antrian'}
+                ],
+                responsive: true,
+                destroy: true
+            });
+        }
+
+        function actionPanggil(nomor_antrian){
+            $.ajax({
+                url: "{{ route('actionPanggil') }}",
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    nomor_antrian: nomor_antrian
+                },
+                dataType: 'json',
+                success: function(data){
+                    var status_code = data.status_code;
+                }
+            });
+        }
+    });
 </script>
+
 </body>
 </html>

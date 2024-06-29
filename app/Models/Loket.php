@@ -25,7 +25,7 @@ class Loket extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'loket_id');
     }
 
     public function getLoket()
@@ -35,6 +35,6 @@ class Loket extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'loket_id');
     }
 }

@@ -83,8 +83,8 @@
                                     <label for="role">Loket</label>
                                     <div class="input-group">
                                         <select id="loket_id" name="loket_id" class="form-control">
-                                            @foreach ($lokets as $loket)
                                                 <option value="">Pilih Loket...</option>
+                                            @foreach ($lokets as $loket)
                                                 <option value="{{ $loket->id }}">{{ $loket->name }}</option>
                                             @endforeach
                                         </select>

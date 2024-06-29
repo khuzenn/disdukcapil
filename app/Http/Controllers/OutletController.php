@@ -41,7 +41,7 @@ class OutletController extends Controller
 
         Outlet::create($validatedData);
 
-        return redirect()->route('data-outlet')->with('success', 'Outlet berhasil ditambahkan');
+        return redirect()->route('admin.data-outlet')->with('success', 'Outlet berhasil ditambahkan'); 
     }
 
     public function getOutlet($id)
@@ -56,7 +56,7 @@ class OutletController extends Controller
         $data = Outlet::find($id);
 
         if (!$data) {
-            return redirect()->route('data-outlet')->with('error', 'Outlet tidak ditemukan');
+            return redirect()->route('admin.data-outlet')->with('error', 'Outlet tidak ditemukan');
         }
 
         $validatedData = $request->validate([
@@ -89,7 +89,7 @@ class OutletController extends Controller
 
         $data->save();
 
-        return redirect()->route('data-outlet')->with('success', 'Outlet berhasil diupdate');
+        return redirect()->route('admin.data-outlet')->with('success', 'Outlet berhasil diupdate');
     }
 
     public function deleteOutlet($id)

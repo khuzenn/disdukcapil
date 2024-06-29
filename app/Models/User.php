@@ -42,6 +42,6 @@ class User extends Authenticatable
 
     public function loket()
     {
-        return $this->belongsTo(Loket::class);
+        return $this->belongsTo(Loket::class, 'loket_id');
     }
 }

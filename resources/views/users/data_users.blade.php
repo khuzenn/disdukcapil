@@ -60,7 +60,7 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger mx-2" onclick="deleteUser({{ $user->id }})"><span class="fas fa-trash"></span></button>
                           </form>
-                          <a href="{{ route('admin.edit',['id' => $user->id]) }}" class="btn btn-primary btn-sm">Edit</a>
+                          <a href="{{ route('admin.edit',['id' => $user->id]) }}" class="btn btn-warning btn-sm"><span class="fas fa-edit"></span></a>
                       </td>
                     </tr>
                     @endforeach
