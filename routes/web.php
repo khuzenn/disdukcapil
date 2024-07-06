@@ -93,14 +93,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
         
 });
-Route::middleware(['auth','role:operator,admin'])->group(function () {
+Route::middleware(['role:operator,admin'])->group(function () {
     Route::get('operator/dashboard',[OperatorController::class,'index'])->name('operator.dashboard');
     Route::get('/antarmuka-display', [AntrianController::class, 'index'])->name('antarmuka-display');
     Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
     Route::get('/rincian-loket', [RincianLoketController::class, 'index'])->name('rincian-loket');
     Route::get('/display-antrian', [DisplayAntrianController::class, 'index'])->name('display-antrian');
-    Route::get('/tabel-antrian-aktif', [AntrianController::class, 'antrianAktif'])->name('getAntrianAktifData');
+    Route::get('/tabel-antrian-aktif', [AntrianController::class, 'antrianAktif']);
     Route::get('/tabel-antrian', [AntrianController::class, 'getAntrian'])->name('getAntrianData');
     Route::post('/panggil-antrian', [AntrianController::class, 'panggilAntrian'])->name('panggilAntrian');
     Route::post('/action-panggil', [AntrianController::class, 'actionPanggil'])->name('actionPanggil');
+    Route::post('/ambil-detail-antrian', [AntrianController::class, 'ambilDetailAntrian'])->name('ambilDetailAntrian');
 });

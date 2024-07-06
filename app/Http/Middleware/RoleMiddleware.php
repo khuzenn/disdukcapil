@@ -13,9 +13,10 @@ class RoleMiddleware
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @param  string  $role
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next,$role)
+    public function handle(Request $request, Closure $next, $role)
     {
         $user = Auth::user();
 
@@ -24,9 +25,17 @@ class RoleMiddleware
             return $next($request);
         } 
 
+        // Jika pengguna adalah operator
+        if ($role === 'operator') {
+            // Periksa apakah pengguna memiliki loket_id
+            if (!$user->loket_id) {
+                abort(403, 'Anda tidak memiliki akses ke loket manapun');
+            }
+        }
+
         // Jika pengguna tidak sesuai dengan peran yang diperlukan, tolak akses
         if ($request->user()->role !== $role) {
-            abort(403, 'Role anda tidak sesuai dengan menu yang ingin anda akses');
+            abort(403, 'Role Anda tidak sesuai dengan menu yang ingin Anda akses');
         }
 
         return $next($request);

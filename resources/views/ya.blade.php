@@ -50,13 +50,10 @@ class AntrianController extends Controller
     $user = Auth::user();
     $loketId = $user->loket_id;
 
-    // Pastikan user memiliki akses ke loket
-    if (!$loketId) {
-        return response()->json(['message' => 'Anda tidak memiliki akses ke loket manapun'], 403);
-    }
-
     $data = Antrian::where('status', 'called')
-        ->where('loket_id', $loketId) // Filter berdasarkan loket operator
+        ->whereHas('loket', function ($query) use ($loketId) {
+            $query->where('id', $loketId);
+        })
         ->join('lokets', 'antrians.loket_id', '=', 'lokets.id')
         ->join('purposes', 'antrians.purpose_id', '=', 'purposes.id')
         ->select([
@@ -70,40 +67,28 @@ class AntrianController extends Controller
     return response()->json(['data' => $data]);
 }
 
+    public function getAntrian()
+    {
+        $data = Antrian::where('antrians.status', 'waiting')
+            ->join('lokets', 'antrians.loket_id', '=', 'lokets.id')
+            ->join('purposes', 'antrians.purpose_id', '=', 'purposes.id')
+            ->select([
+                'purposes.keterangan as jenis_transaksi',
+                'purposes.kode as kode_antrian',
+                'antrians.purpose_id',
+                'purposes.jenis',
+                DB::raw('MAX(antrians.created_at) as created_at'),
+                DB::raw('MAX(antrians.updated_at) as updated_at'),
+                DB::raw('MAX(lokets.nomor) as nomor_loket'),
+                DB::raw('count(antrians.loket_id) as jumlah_antrian')
+            ])
+            ->groupBy('purposes.keterangan', 'purposes.kode', 'antrians.purpose_id', 'purposes.jenis')
+            ->get();
 
-
-public function getAntrian()
-{
-    $user = Auth::user();
-    $loket = $user->loket;
-
-    // Pastikan user memiliki akses ke loket
-    if (!$loket) {
-        return response()->json(['message' => 'Anda tidak memiliki akses ke loket manapun'], 403);
+        return DataTables::of($data)->make(true);
     }
 
-    $data = Antrian::where('antrians.status', 'waiting')
-        ->where('antrians.loket_id', $loket->id) // Filter berdasarkan loket operator
-        ->join('lokets', 'antrians.loket_id', '=', 'lokets.id')
-        ->join('purposes', 'antrians.purpose_id', '=', 'purposes.id')
-        ->select([
-            'purposes.keterangan as jenis_transaksi',
-            'purposes.kode as kode_antrian',
-            'antrians.purpose_id',
-            'purposes.jenis',
-            DB::raw('MAX(antrians.created_at) as created_at'),
-            DB::raw('MAX(antrians.updated_at) as updated_at'),
-            DB::raw('MAX(lokets.nomor) as nomor_loket'),
-            DB::raw('count(antrians.loket_id) as jumlah_antrian')
-        ])
-        ->groupBy('purposes.keterangan', 'purposes.kode', 'antrians.purpose_id', 'purposes.jenis')
-        ->get();
-
-    return DataTables::of($data)->make(true);
-}
-
-
-public function panggilAntrian(Request $request)
+    public function panggilAntrian(Request $request)
 {
     $user = Auth::user();
     $loket = $user->loket;
@@ -186,65 +171,43 @@ public function panggilAntrian(Request $request)
 }
 
 
+    public function actionPanggil(Request $request)
+    {
+        $antrian = Antrian::where('status', 'called')->orderBy('id')->first();
 
-public function actionPanggil(Request $request)
-{
-    $user = Auth::user();
-    $loket = $user->loket;
-
-    if (!$loket) {
-        return response()->json(['message' => 'Anda tidak memiliki akses ke loket manapun'], 403);
+        if ($antrian) {
+            $loket = $antrian->loket;
+            $purpose = $antrian->purpose;
+            $nomor_antrian = $purpose->kode . str_pad($antrian->nomor_antrian, 3, '0', STR_PAD_LEFT);
+    
+            $data = [
+                'nomor_antrian' => $nomor_antrian,
+                'nomor_loket' => $loket->nomor,
+                'purpose_id' => $purpose->id,
+                'status_code' => 100
+            ];
+    
+            return response()->json($data);
+        } else {
+            return response()->json(['error' => 'Tidak ada antrian yang dipanggil.'], 404);
+        }
     }
 
-    $antrian = Antrian::where('loket_id', $loket->id)
-                      ->where('status', 'called')
-                      ->orderBy('id')
-                      ->first();
+    public function ambilDetailAntrian(Request $request)
+    {
+        $antrian = Antrian::where('status', 'called')->orderBy('id')->first();
 
-    if ($antrian) {
+        if (!$antrian) {
+            return response()->json(['error' => 'Tidak ada antrian yang menunggu.'], 404);
+        }
+
+        $loket = $antrian->loket;
         $purpose = $antrian->purpose;
         $nomor_antrian = $purpose->kode . str_pad($antrian->nomor_antrian, 3, '0', STR_PAD_LEFT);
 
-        $data = [
+        return response()->json([
             'nomor_antrian' => $nomor_antrian,
             'nomor_loket' => $loket->nomor,
-            'purpose_id' => $purpose->id,
-            'status_code' => 100
-        ];
-
-        return response()->json($data);
-    } else {
-        return response()->json(['error' => 'Tidak ada antrian yang dipanggil.'], 404);
+        ]);
     }
-}
-
-
-public function ambilDetailAntrian(Request $request)
-{
-    $user = Auth::user();
-    $loketId = $user->loket_id;
-
-    if (!$loketId) {
-        return response()->json(['error' => 'Anda tidak memiliki akses ke loket manapun.'], 403);
-    }
-
-    $antrian = Antrian::where('status', 'called')
-                      ->where('loket_id', $loketId)
-                      ->orderBy('id')
-                      ->first();
-
-    if (!$antrian) {
-        return response()->json(['error' => 'Tidak ada antrian yang menunggu.'], 404);
-    }
-
-    $loket = $antrian->loket;
-    $purpose = $antrian->purpose;
-    $nomor_antrian = $purpose->kode . str_pad($antrian->nomor_antrian, 3, '0', STR_PAD_LEFT);
-
-    return response()->json([
-        'nomor_antrian' => $nomor_antrian,
-        'nomor_loket' => $loket->nomor,
-    ]);
-}
-
 }

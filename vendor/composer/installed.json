@@ -5778,17 +5778,17 @@
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "1.6.4",
-            "version_normalized": "1.6.4.0",
+            "version": "1.6.0",
+            "version_normalized": "1.6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "1a2b4bd3d48c72526c0ba417687e5c56b5cf49bc"
+                "reference": "c21309ebf6657e0c38083afac8af9baa12885676"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/1a2b4bd3d48c72526c0ba417687e5c56b5cf49bc",
-                "reference": "1a2b4bd3d48c72526c0ba417687e5c56b5cf49bc",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/c21309ebf6657e0c38083afac8af9baa12885676",
+                "reference": "c21309ebf6657e0c38083afac8af9baa12885676",
                 "shasum": ""
             },
             "require": {
@@ -5815,7 +5815,7 @@
                 "phpstan/phpstan-phpunit": "^1.0",
                 "spatie/laravel-ray": "^1.27"
             },
-            "time": "2023-01-03T19:28:04+00:00",
+            "time": "2022-10-25T08:38:04+00:00",
             "type": "library",
             "extra": {
                 "laravel": {
@@ -8798,10 +8798,6 @@
         "sebastian/resource-operations",
         "sebastian/type",
         "sebastian/version",
-        "spatie/backtrace",
-        "spatie/flare-client-php",
-        "spatie/ignition",
-        "spatie/laravel-ignition",
         "symfony/yaml",
         "theseer/tokenizer"
     ]

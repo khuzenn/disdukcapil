@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Antrian extends Model
 {
+
+    use HasFactory;
+
+    protected $table = 'antrians';
+
     protected $fillable = [
         'loket_id',
         'purpose_id',
@@ -18,7 +23,8 @@ class Antrian extends Model
         'keterangan',
         'count',
         'hari',
-        'tanggal'
+        'tanggal',
+        'status'
     ];
 
     public function loket()

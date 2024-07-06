@@ -105,7 +105,7 @@
                 <div class="row mt-5">
                     <div class="col-md-7">
                         <!-- Line Chart -->
-                         <div class="card card-primary card-outline">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <i class="far fa-star"></i>
@@ -313,63 +313,50 @@
 </script>
 
 <script type="text/javascript">
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
     $(document).ready(function(){
         var Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
         });
 
         tableAntrianAktifRefresh();
+        var refreshAntrianAktifId = setInterval(tableAntrianAktifRefresh, 5000);
         tableAntrianRefresh();
+        var refreshAntrianId = setInterval(tableAntrianRefresh, 5000);
 
         $(document).keyup(function(event) {
-            if (event.keyCode === 13) { // Enter key
+            if (event.keyCode === 13) {
                 $("#panggil").click();
             }
         });
 
         $(document).keyup(function(event) {
-            if (event.keyCode === 120) { // F9 key
+            if (event.keyCode === 120) {
                 panggilUlang();
             }
         });
-
+                 
         $('#panggil').on('click', function(){
-            var id_user = $('#panggil').data('users');
-
+            var id = $('#panggil').data('users');
             $.ajax({
-                url: "{{ route('panggilAntrian') }}",
+                url: "/panggil-antrian",
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    user_id: id_user
+                    id: id
                 },
                 dataType: 'json',
                 success: function(data){
-                    var nomor_loket = data.nomor_loket;
-                    var antrian_panggil = data.nomor_antrian;
+                    var nomor_loket = data['nomor_loket'];
+                    var antrian_sebelumnya = data['antrian_sebelumnya'];
+                    var antrian_panggil = data['antrian_panggil'];
 
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Berhasil memanggil No. antrian ' + antrian_panggil + ' menuju loket ' + nomor_loket,
-                    });
-
+                    panggilUlang();
                     tableAntrianAktifRefresh();
                     tableAntrianRefresh();
                 }
-            }).fail(function(){
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Tidak ada antrian yang tersedia.',
-                })
             });
         });
 
@@ -379,83 +366,83 @@
 
         function panggilUlang(){
             $('#setOverlay').append('<div class="overlay" id="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i></div>');
-            var id_user = $('#panggil-ulang').data('users');
+            var id = $('#panggil-ulang').data('users');
 
             $.ajax({
-                url: "{{ route('panggilAntrian') }}",
+                url: "/ambil-detail-antrian",
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    user_id: id_user
+                    id: id
                 },
                 dataType: 'json',
                 success: function(data){
-                    var nomor_loket = data.nomor_loket;
-                    var nomor_antrian = data.nomor_antrian;
+                    var nomor_loket = data['nomor_loket'];
+                    var nomor_antrian = data['nomor_antrian'];
 
                     actionPanggil(nomor_antrian);
 
                     Toast.fire({
-                        icon: 'success',
-                        title: 'Berhasil memanggil ulang No. antrian ' + nomor_antrian + ' menuju loket ' + nomor_loket,
-                    });
-
-                    tableAntrianAktifRefresh();
-                    tableAntrianRefresh();
+                      icon: 'success',
+                      title: 'Berhasil memanggil No. antrian '+nomor_antrian+' menuju loket '+nomor_loket,
+                    })
                 }
             }).fail(function(){
-                Toast.fire({
-                    icon: 'error',
-                    title: 'No. antrian gagal dipanggil! Silahkan cek koneksi database aplikasi.',
-                })
+              Toast.fire({
+                icon: 'error',
+                title: 'No. antrian gagal dipanggil! Silahkan cek koneksi database aplikasi.',
+              })
             }).always(function(){
-                $("#overlay").remove();
+              $("#overlay").remove();
             });
         }
 
         function tableAntrianAktifRefresh(){
             $('#table-antrian-aktif').DataTable({
-                serverSide: true,
-                ajax: {
-                    url: "/tabel-antrian-aktif",
-                    method: 'GET',
-                    dataType: 'json'
-                },
-                order: [[0, 'asc']],
-                processing: true,
-                columns: [
-                    {data: 'nomor_antrian'},
-                    {data: 'nomor_loket'},
-                    {data: 'jenis_transaksi'}
-                ],
-                responsive: true,
-                destroy: true
-            });
+                    serverSide: false,
+                    ajax: {
+                        url: "/tabel-antrian-aktif", // URL ke method antrianAktif di controller
+                        type: 'GET',
+                        dataSrc: function (json) {
+                            return json.data || []; // Assuming your response structure is { "data": [...] }
+                        }
+                    },
+                    order: [[1, 'asc']],
+                    processing: true,
+                    columns: [
+                        {data: 'nomor_antrian'},
+                        {data: 'nomor_loket'},
+                        {data: 'jenis_transaksi'}
+                    ],
+                    "responsive": true,
+                    "bDestroy": true
+                });
         }
 
         function tableAntrianRefresh(){
             $('#table-antrian').DataTable({
-                serverSide: true,
+                serverSide: false,
                 ajax: {
-                    url: "{{ route('getAntrianData') }}",
-                    method: 'GET',
-                    dataType: 'json'
+                    url: "/tabel-antrian",
+                    type: 'GET',
+                    DataType: 'JSON'
                 },
-                order: [[0, 'asc']],
+                order: [[1,'asc']],
+                // scrollX: true,
                 processing: true,
                 columns: [
-                    {data: 'jenis_transaksi'},
-                    {data: 'kode_antrian'},
-                    {data: 'jumlah_antrian'}
+                  {data: 'jenis_transaksi'},
+                  {data: 'kode_antrian'},
+                  {data: 'jumlah_antrian'}
                 ],
-                responsive: true,
-                destroy: true
+                "responsive" : true,
+                "bDestroy": true
             });
         }
 
         function actionPanggil(nomor_antrian){
-            $.ajax({
-                url: "{{ route('actionPanggil') }}",
+          $.ajax({
+                url: "/action-panggil",
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -463,12 +450,13 @@
                 },
                 dataType: 'json',
                 success: function(data){
-                    var status_code = data.status_code;
+                  var status_code = data['status_code'];
                 }
             });
         }
     });
 </script>
+
 
 </body>
 </html>
