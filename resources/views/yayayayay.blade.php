@@ -331,7 +331,13 @@
                 $("#panggil").click();
             }
         });
-        
+
+        // $(document).keyup(function(event) {
+        //     if (event.keyCode === 120) {
+        //         panggilUlang();
+        //     }
+        // });
+                 
         $('#panggil').on('click', function(){
             var id = $('#panggil').data('users');
             $.ajax({
@@ -347,6 +353,7 @@
                     var antrian_sebelumnya = data['antrian_sebelumnya'];
                     var antrian_panggil = data['antrian_panggil'];
 
+                    //panggilUlang();
                     tableAntrianAktifRefresh();
                     tableAntrianRefresh();
                 }
@@ -357,9 +364,12 @@
             panggilUlang();
         });
 
-        function panggilUlang(number, loket){
+        function panggilUlang(){
+            $('#setOverlay').append('<div class="overlay" id="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i></div>');
+            var id = $('#panggil-ulang').data('users');
+
             $.ajax({
-                url: "/display-antrian",
+                url: "/ambil-detail-antrian",
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -368,21 +378,23 @@
                 dataType: 'json',
                 success: function(data){
                     var nomor_loket = data['nomor_loket'];
-                    var antrian_sebelumnya = data['antrian_sebelumnya'];
-                    var antrian_panggil = data['antrian_panggil'];
+                    var nomor_antrian = data['nomor_antrian'];
 
-                    tableAntrianAktifRefresh();
-                    tableAntrianRefresh();
+                    actionPanggil(nomor_antrian);
+
+                    Toast.fire({
+                      icon: 'success',
+                      title: 'Berhasil memanggil No. antrian '+nomor_antrian+' menuju loket '+nomor_loket,
+                    })
                 }
+            }).fail(function(){
+              Toast.fire({
+                icon: 'error',
+                title: 'No. antrian gagal dipanggil! Silahkan cek koneksi database aplikasi.',
+              })
+            }).always(function(){
+              $("#overlay").remove();
             });
-            if ('speechSynthesis' in window) {
-                var msg = new SpeechSynthesisUtterance();
-                msg.text = `Nomor antrian ${number}, silakan menuju loket ${loket}`;
-                msg.lang = 'id-ID'; // Bahasa Indonesia
-                window.speechSynthesis.speak(msg);
-            } else {
-                alert('Browser Anda tidak mendukung Speech Synthesis API.');
-            }
         }
 
         function tableAntrianAktifRefresh(){
@@ -428,7 +440,20 @@
             });
         }
 
-        
+        function actionPanggil(nomor_antrian){
+          $.ajax({
+                url: "/action-panggil",
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    nomor_antrian: nomor_antrian
+                },
+                dataType: 'json',
+                success: function(data){
+                  var status_code = data['status_code'];
+                }
+            });
+        }
     });
 </script>
 
