@@ -2,6 +2,8 @@
 @include('components.navbar')
 @include('components.sidebar')
 
+
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -79,6 +81,11 @@
             </div>
             <!-- /.row -->
             <h5 class="mb-2 mt-4">Tools Antrian</h5>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
             <div class="row">
                 <div class="col-md-4">
                     <!-- small card -->
@@ -90,12 +97,10 @@
                         <div class="icon">
                             <i class="fas fa-bookmark"></i>
                         </div>
-                        <form action="#" method="post">
-                            <input type="hidden" name="_token" value="0ycAm2ay718Jm6vS7rwPRFmjGNiIIQRfpUgszUHK">
-                            <input type="hidden" id="user_id" name="user_id" value="1">
-                            <button type="submit" class="btn btn-block btn-danger btn-sm" onclick="return confirm('Are you sure?')">
-                                Reset <i class="fas fa-arrow-circle-right"></i>
-                            </button>
+                        <form action="delete-all" method="POST" onsubmit="return confirm('Are you sure you want to delete all queues?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete All Queues</button>
                         </form>
                     </div>
                 </div>

@@ -19,4 +19,10 @@ class AdminController extends Controller
             'totalPurpose' => $totalPurpose
         ]);
     }
+    
+    public function deleteAll()
+        {
+            \App\Models\Antrian::query()->delete(); // This will delete all records in the 'antrians' table
+            return redirect()->route('admin.dashboard')->with('success', 'All queues have been deleted.');
+        }
 }

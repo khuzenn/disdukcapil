@@ -174,7 +174,7 @@
                             </div>
                             <div class="card-body">
                                 <button class="btn btn-primary " type="button" id="panggil" data-users="{{ $user->id }}">Panggil (Enter)</button> 
-                                <button class="btn btn-success " type="button" id="panggil-ulang" data-users="{{ $user->id }}">Ulangi (F9)</button>
+                                <button type="button" class="btn btn-success" id="panggil-ulang" >Panggil Ulang</button>
                             </div>
                         </div>
                         <div class="card card-primary card-outline">
@@ -331,6 +331,11 @@
                 $("#panggil").click();
             }
         });
+
+        $('#panggil-ulang').on('click', function(){
+            panggilUlang();
+        });
+
         
         $('#panggil').on('click', function(){
             var id = $('#panggil').data('users');
@@ -346,44 +351,30 @@
                     var nomor_loket = data['nomor_loket'];
                     var antrian_sebelumnya = data['antrian_sebelumnya'];
                     var antrian_panggil = data['antrian_panggil'];
+                    var called_count = data['called_count'];
 
-                    tableAntrianAktifRefresh();
+                    tableAntrianAktifRefresh();s
                     tableAntrianRefresh();
                 }
             });
         });
 
-        $('#panggil-ulang').on('click', function(){
-            panggilUlang();
-        });
-
-        function panggilUlang(number, loket){
-            $.ajax({
-                url: "/display-antrian",
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    id: id
-                },
-                dataType: 'json',
-                success: function(data){
-                    var nomor_loket = data['nomor_loket'];
-                    var antrian_sebelumnya = data['antrian_sebelumnya'];
-                    var antrian_panggil = data['antrian_panggil'];
-
-                    tableAntrianAktifRefresh();
-                    tableAntrianRefresh();
+        function panggilUlang() {
+        $.ajax({
+            url: '/panggil-ulang-antrian',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert('Antrian dipanggil ulang.');
+                } else {
+                    alert(response.message);
                 }
-            });
-            if ('speechSynthesis' in window) {
-                var msg = new SpeechSynthesisUtterance();
-                msg.text = `Nomor antrian ${number}, silakan menuju loket ${loket}`;
-                msg.lang = 'id-ID'; // Bahasa Indonesia
-                window.speechSynthesis.speak(msg);
-            } else {
-                alert('Browser Anda tidak mendukung Speech Synthesis API.');
             }
-        }
+        });
+    }
 
         function tableAntrianAktifRefresh(){
             $('#table-antrian-aktif').DataTable({
@@ -428,8 +419,13 @@
             });
         }
 
+
+
+
+
+
         
-    });
+});
 </script>
 
 

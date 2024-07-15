@@ -83,7 +83,7 @@
             <div class="col-md-7">
                 <div class="card card-default">
                     <div class="card-body">
-                        <iframe width="100%" height="340" src="https://www.youtube.com/embed/DOOrIxw5xOw?playlist=DOOrIxw5xOw&autoplay=1&loop=1&showinfo=0&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        {{-- <iframe width="100%" height="340" src="https://www.youtube.com/embed/DOOrIxw5xOw?playlist=DOOrIxw5xOw&autoplay=1&loop=1&showinfo=0&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@
                     <div class="alert alert-info" style="height:96%; background-color: {{ $data->box_display_color }} !important; color: {{ $data->text_color }} !important;">
                         <h3>Nomor Antrian</h3>
                         <hr>
-                        <h1 class="display-4 font-weight-bold" id="nomor_antrian_{{ $box }}">{{ $formatted_nomor_antrian }}</h1>
+                        <h1 class="display-4 font-weight-bold" id="nomor_antrian_{{ $box }}" data-called-count="{{ $antrian ? $antrian->called_count : '0' }}">{{ $formatted_nomor_antrian }}</h1>
                         <hr>
                         <h5 id="keterangan_{{ $box }}" style="display:inline;">{{ $antrian ? $antrian->keterangan : '-' }}</h5>
                         <h5 style="display:inline;" class="font-weight-bold"><i class="icon fas fa-arrow-circle-right"> </i> Loket </h5>
@@ -115,6 +115,7 @@
 
     <!-- Scripts -->
     <script src="/AdminLTE/plugins/jquery/jquery.min.js"></script>
+    
     <script src="/AdminLTE/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/AdminLTE/plugins/chart.js/Chart.min.js"></script>
@@ -144,7 +145,7 @@
     <script src="/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="/AdminLTE/plugins/toastr/toastr.min.js"></script>
 
-    <script>
+<script >
     function startTime() {
       var today = new Date();
       var h = today.getHours();
@@ -161,19 +162,19 @@
       return i;
     }
     $(document).ready(function() {
-        
-        function callQueue(number, loket) {
-        // Cek apakah browser mendukung Speech Synthesis API
-            if ('speechSynthesis' in window) {
-                var msg = new SpeechSynthesisUtterance();
-                msg.text = `Nomor antrian ${number}, silakan menuju loket ${loket}`;
-                msg.lang = 'id-ID'; // Bahasa Indonesia
-                window.speechSynthesis.speak(msg);
-            } else {
-                alert('Browser Anda tidak mendukung Speech Synthesis API.');
-            }
-        }
-        function updateAntrian() {
+
+// Fungsi untuk memanggil suara menggunakan SpeechSynthesis API
+function callQueue(number, loket) {
+    if ('speechSynthesis' in window) {
+        var msg = new SpeechSynthesisUtterance();
+        msg.text = `Nomor antrian ${number}, silakan menuju loket ${loket}`;
+        msg.lang = 'id-ID'; // Bahasa Indonesia
+        window.speechSynthesis.speak(msg);
+    } else {
+        alert('Browser Anda tidak mendukung Speech Synthesis API.');
+    }
+}
+    function updateAntrian() {
         $.ajax({
             url: '/get-latest-antrian',
             method: 'GET',
@@ -188,10 +189,17 @@
                         $('#nomor_antrian_' + box.box).text(newNumber);
                         $('#keterangan_' + box.box).text(box.keterangan);
                         $('#nomor_loket_' + box.box).text(newLoket);
+                        
+
 
                         // Panggil fungsi callQueue
                         callQueue(newNumber, newLoket);
-                        }
+                        } else if (box.called_count > parseInt($('#nomor_antrian_' + box.box).attr('data-called-count'))) {
+                        $('#nomor_antrian_' + box.box).attr('data-called-count', box.called_count);
+
+                        // Panggil fungsi callQueue jika called_count berubah
+                        callQueue(newNumber, newLoket);
+                    }
                     });
                 }
             });
@@ -199,7 +207,9 @@
 
         setInterval(updateAntrian, 5000);
         updateAntrian();
-        });
-    </script>
+        
+
+});
+</script>
 </body>
 </html>

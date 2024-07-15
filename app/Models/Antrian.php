@@ -24,7 +24,8 @@ class Antrian extends Model
         'count',
         'hari',
         'tanggal',
-        'status'
+        'status',
+        'called_count'
     ];
 
     public function loket()
