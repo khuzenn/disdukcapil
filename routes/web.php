@@ -48,6 +48,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
     Route::get('/edit', [UsersController::class, 'edit'])->name('edit');
     Route::put('/update', [UsersController::class, 'update'])->name('update');
+    Route::delete('/delete-all', [AdminController::class, 'deleteAll'])->name('delete-all');
     
     // Outlet Menu
     Route::get('/data-outlet', [OutletController::class, 'index'])->name('data-outlet');
@@ -115,5 +116,5 @@ Route::middleware(['role:operator,admin'])->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
     Route::get('/get-latest-antrian', [AntrianController::class, 'getLatestAntrian']);
-    Route::post('/panggil-ulang-antrian', [AntrianController::class,'panggilUlangAntrian']);
+    Route::post('/panggil-ulang-antrian', [AntrianController::class,'panggilUlang'])->name('panggilUlang');
 });
