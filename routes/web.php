@@ -13,6 +13,7 @@ use App\Http\Controllers\DisplayAntrianController;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -91,6 +92,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Antrian
     Route::get('/antarmuka-display', [AntrianController::class, 'index'])->name('antarmuka-display');
     Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
+
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
+    // web.php
+
+    Route::get('/get-latest-antrian', [AntrianController::class, 'getLatestAntrian']);
+
         
 });
 Route::middleware(['role:operator,admin'])->group(function () {
@@ -104,4 +112,8 @@ Route::middleware(['role:operator,admin'])->group(function () {
     Route::post('/panggil-antrian', [AntrianController::class, 'panggilAntrian'])->name('panggilAntrian');
     Route::post('/action-panggil', [AntrianController::class, 'actionPanggil'])->name('actionPanggil');
     Route::post('/ambil-detail-antrian', [AntrianController::class, 'ambilDetailAntrian'])->name('ambilDetailAntrian');
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
+    Route::get('/get-latest-antrian', [AntrianController::class, 'getLatestAntrian']);
+    Route::post('/panggil-ulang-antrian', [AntrianController::class,'panggilUlangAntrian']);
 });

@@ -10,6 +10,7 @@ use App\Models\Antrian;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Setting;
 
 class AntrianController extends Controller
 {
@@ -246,5 +247,29 @@ public function ambilDetailAntrian(Request $request)
         'nomor_loket' => $loket->nomor,
     ]);
 }
+// AntrianController.php
+
+public function getLatestAntrian()
+{
+    $settings = Setting::all();
+    $antrians = [];
+
+    foreach(range(1, 4) as $box) {
+        $setting = $settings->firstWhere('box', 'box_' . $box);
+        $antrian = $setting ? \App\Models\Antrian::where('status', 'called')->where('loket_id', $setting->loket_id)->first() : null;
+        $formatted_nomor_antrian = $antrian ? $antrian->purpose->kode . str_pad($antrian->nomor_antrian, 3, '0', STR_PAD_LEFT) : '-';
+        $antrians[] = [
+            'box' => $box,
+            'nomor_antrian' => $formatted_nomor_antrian,
+            'keterangan' => $antrian ? $antrian->keterangan : '-',
+            'nomor_loket' => $antrian ? $antrian->loket->nomor : '-'
+        ];
+    }
+
+    return response()->json($antrians);
+}
+
+
+
 
 }
