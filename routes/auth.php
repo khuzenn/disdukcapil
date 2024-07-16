@@ -10,12 +10,13 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DisplayAntrianController;
+use App\Http\Controllers\AntrianController;
 
 Route::middleware('guest')->group(function () {
 
-
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
-                ->name('login');
+    
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
@@ -30,6 +31,15 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
+                
+    Route::middleware(['guest'])->group(function () {
+    Route::view('/login', 'auth.login')->name('login');
+
+    Route::get('/display-antrian', [DisplayAntrianController::class, 'index'])->name('display-antrian');
+    Route::get('/antarmuka-display', [AntrianController::class, 'index'])->name('antarmuka-display');
+    Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
+});
+
 });
 
 Route::middleware('auth')->group(function () {

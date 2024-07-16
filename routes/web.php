@@ -31,15 +31,13 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
 require __DIR__.'/auth.php';
 
-Route::prefix('admin')->name('admin.')->group(function () {
+
+
+
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard',[AdminController::class,'index'])->name('dashboard');
     Route::get('operator/dashboard',[OperatorController::class,'index']);
     Route::get('/users', [UsersController::class, 'index'])->name('users');
@@ -95,27 +93,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
     Route::get('/info-antrian-user', [AntrianController::class, 'InfoAntrianUser'])->name('info-antrian-user');
 
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
-    // web.php
+    Route::get('/box-settings', [SettingController::class, 'index'])->name('box-settings');
+    Route::post('/create-box-antrian', [SettingController::class, 'store'])->name('create-box');
 
     Route::get('/get-latest-antrian', [AntrianController::class, 'getLatestAntrian']);
 
         
 });
-Route::middleware(['role:operator,admin'])->group(function () {
+Route::middleware(['auth','role:operator,admin'])->group(function () {
     Route::get('operator/dashboard',[OperatorController::class,'index'])->name('operator.dashboard');
-    Route::get('/antarmuka-display', [AntrianController::class, 'index'])->name('antarmuka-display');
-    Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
     Route::get('/rincian-loket', [RincianLoketController::class, 'index'])->name('rincian-loket');
-    Route::get('/display-antrian', [DisplayAntrianController::class, 'index'])->name('display-antrian');
     Route::get('/tabel-antrian-aktif', [AntrianController::class, 'antrianAktif']);
     Route::get('/tabel-antrian', [AntrianController::class, 'getAntrian'])->name('getAntrianData');
     Route::post('/panggil-antrian', [AntrianController::class, 'panggilAntrian'])->name('panggilAntrian');
     Route::post('/action-panggil', [AntrianController::class, 'actionPanggil'])->name('actionPanggil');
     Route::post('/ambil-detail-antrian', [AntrianController::class, 'ambilDetailAntrian'])->name('ambilDetailAntrian');
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
     Route::get('/get-latest-antrian', [AntrianController::class, 'getLatestAntrian']);
     Route::post('/panggil-ulang-antrian', [AntrianController::class,'panggilUlang'])->name('panggilUlang');
 });

@@ -23,10 +23,23 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
-            }
+                $user = Auth::user();
+                // Redirect based on user role
+                switch ($user->role) {
+                    case 'admin':
+                        return redirect('/admin/dashboard');
+                        break;
+                    case 'operator':
+                        return redirect('/operator/dashboard');
+                        break;
+                    // Add more cases for other roles as needed
+                    default:
+                        return abort(403, 'Role Anda tidak sesuai dengan menu yang ingin Anda akses'); // Redirect to default route if role not defined
+                        break;
+                }
         }
 
         return $next($request);
+     }
     }
 }

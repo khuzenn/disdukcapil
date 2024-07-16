@@ -34,7 +34,7 @@
                     </div>
                 @endif
             
-                <form action="{{ route('settings.store') }}" method="POST">
+                <form action="{{ route('admin.create-box') }}" method="POST">
                     @csrf
             
                     @foreach(range(1, 4) as $box)

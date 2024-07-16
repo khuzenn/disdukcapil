@@ -29,7 +29,7 @@ class SettingController extends Controller
         }
     }
 
-    return redirect()->back()->with('success', 'Settings updated successfully.');
+    return redirect()->route('admin.box-settings')->with('success', 'Settings updated successfully.');
 }
 }
 

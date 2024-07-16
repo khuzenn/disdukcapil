@@ -28,7 +28,7 @@
             <div class="card">
               <div class="card-header">
                 <a href="create-antarmuka" class="btn btn-primary mt-2 mb-2">Tambah Data</a>
-                <a href="/settings" class="btn btn-primary mt-2 mb-2">Tampilan Antrian</a>
+                <a href="box-settings" class="btn btn-primary mt-2 mb-2">Tampilan Antrian</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
