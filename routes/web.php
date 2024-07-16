@@ -93,6 +93,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Antrian
     Route::get('/antarmuka-display', [AntrianController::class, 'index'])->name('antarmuka-display');
     Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
+    Route::get('/info-antrian-user', [AntrianController::class, 'InfoAntrianUser'])->name('info-antrian-user');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');

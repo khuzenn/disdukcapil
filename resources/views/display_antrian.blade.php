@@ -190,8 +190,6 @@ function callQueue(number, loket) {
                         $('#keterangan_' + box.box).text(box.keterangan);
                         $('#nomor_loket_' + box.box).text(newLoket);
                         
-
-
                         // Panggil fungsi callQueue
                         callQueue(newNumber, newLoket);
                         } else if (box.called_count > parseInt($('#nomor_antrian_' + box.box).attr('data-called-count'))) {
@@ -207,8 +205,6 @@ function callQueue(number, loket) {
 
         setInterval(updateAntrian, 5000);
         updateAntrian();
-        
-
 });
 </script>
 </body>
