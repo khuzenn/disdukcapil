@@ -322,9 +322,9 @@
         });
 
         tableAntrianAktifRefresh();
-        var refreshAntrianAktifId = setInterval(tableAntrianAktifRefresh, 5000);
+        var refreshAntrianAktifId = setInterval(tableAntrianAktifRefresh, 10000);
         tableAntrianRefresh();
-        var refreshAntrianId = setInterval(tableAntrianRefresh, 5000);
+        var refreshAntrianId = setInterval(tableAntrianRefresh, 10000);
 
         $(document).keyup(function(event) {
             if (event.keyCode === 13) {

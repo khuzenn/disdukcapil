@@ -31,15 +31,15 @@
     }
 
     .footer {
-      position:fixed;
-      bottom:0px;
+      position: fixed;
+      bottom: 0px;
       right: 0px;
-      width:100%;
-      z-index:1000;
-      padding:2px;
-      margin:auto;
-      text-align:center;
-      float:none;
+      width: 100%;
+      z-index: 1000;
+      padding: 2px;
+      margin: auto;
+      text-align: center;
+      float: none;
       box-shadow: 0px -2px 10px #c0c0c0;
       background-color: var(--primary);
       color: #fff;
@@ -83,27 +83,33 @@
   <div class="container">
     <div class="row justify-content-center mt-2">
       <div class="col-lg-12 mb-4">
-        <h3 class="mt-4 text-center">Ambil Antrian</h3>
+        <h3 class="mt-4 text-center">Informasi Antrian</h3>
         <hr>
       </div>
-      @foreach ($lokets as $loket)
-      <div class="col-lg-4 col-12">
-        <div class="small-box" id="{{ $loket->purpose->jenis }}" style="background-color: {{$data->box_ambil_color}} !important; color: {{$data->text_color}} !important;">
-          <div class="inner">
-            <h3>{{ $loket->name }}</h3>
-            <p>{{ $loket->purpose->keterangan }}</p> 
+      <div class="card col-sm-12 col-md-8 col-lg-6 mb-3">
+        <div class="card-header">
+          <div class="card-title col-lg-12">
+            <h2 class="text-center mb-0" style="font-weight: bold;">{{$data->name}}</h2>
+            <p class="text-center">{{$data->address}}</p>
           </div>
-          <div class="icon">
-            <i class="fas fa-bookmark"></i>
+        </div>
+        <div class="card-body">
+          <div class="text-center">
+            <h3 class="text-center" style="font-weight: bold;">Pelayanan KK</h3>
+            <h5 class="text-center">Nomor Antrian Anda :</h5>
+            <div class="text-center">
+              <div class="border border-dark d-inline-block p-2 my-3">
+                <h1 class="text-center font-weight-bold">A001</h1>
+              </div>
+            </div>
+            <p class="text-center">SILAHKAN MENUNGGU NOMOR ANTRIAN DIPANGGIL <br> NOMOR INI HANYA BERLAKU PADA HARI DICETAK <br> SELASA, 16 JULI 2024</p>
+            <h4 class="text-center font-weight-bold">Terima Kasih Anda Telah Tertib</h4>
           </div>
-          <a class="small-box-footer" id="antrian-{{ $loket->purpose->jenis }}" onclick="ambilAntrian(event, '{{ $loket->id }}')">
-            Ambil Antrian <i class="fas fa-arrow-circle-right"></i> 
-          </a>
         </div>
       </div>
-      @endforeach
     </div>
   </div>
+  
   <div class="footer" style="background-color: {{$data->header_color}}!important; color: {{$data->text_color}}!important;">
     <marquee>{{$data->running_text}}</marquee>
   </div>

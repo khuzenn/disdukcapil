@@ -91,6 +91,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Antrian
     Route::get('/antarmuka-display', [AntrianController::class, 'index'])->name('antarmuka-display');
     Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
+    Route::get('/info-antrian-user', [AntrianController::class, 'InfoAntrianUser'])->name('info-antrian-user');
 
     Route::get('/box-settings', [SettingController::class, 'index'])->name('box-settings');
     Route::post('/create-box-antrian', [SettingController::class, 'store'])->name('create-box');

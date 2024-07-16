@@ -46,7 +46,15 @@ class AntrianController extends Controller
         return response()->json($antrian);
     }
 
-        public function antrianAktif()
+    public function InfoAntrianUser()
+    {
+        $data = Outlet::first();
+        $lokets = Loket::all();
+
+        return view('/info_antrian_user', compact('data', 'lokets'));
+    }
+
+    public function antrianAktif()
     {
         $user = Auth::user();
         $loketId = $user->loket_id;
