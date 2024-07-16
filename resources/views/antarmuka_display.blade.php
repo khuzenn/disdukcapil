@@ -57,8 +57,7 @@
               <div class="flex-container">
                 <img src='/assets/logo/1718809145.png' alt="Logo" height="110" class="p-2">
                 <div class="nav-link align-items-center">
-                  <h1 class="display-4"><b>DISDUKCAPIL JAKARTA</b></h1>
-                  <h5>DISDUKCAPIL JAKARTA</h5>
+                  <h1 class="display-4"><b>{{ $data->name }}</b></h1>
                 </div>
               </div>
             </li>
