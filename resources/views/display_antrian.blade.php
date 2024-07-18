@@ -83,7 +83,7 @@
             <div class="col-md-7">
                 <div class="card card-default">
                     <div class="card-body">
-                        {{-- <iframe width="100%" height="340" src="https://www.youtube.com/embed/DOOrIxw5xOw?playlist=DOOrIxw5xOw&autoplay=1&loop=1&showinfo=0&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
+                        <iframe width="100%" height="340" src="https://www.youtube.com/embed/DOOrIxw5xOw?playlist=DOOrIxw5xOw&autoplay=1&loop=1&showinfo=0&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>

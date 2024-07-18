@@ -97,13 +97,16 @@
                         <div class="icon">
                             <i class="fas fa-bookmark"></i>
                         </div>
-                        <form action="delete-all" method="POST" onsubmit="return confirm('Are you sure you want to delete all queues?');">
+                        <form action="delete-all"  method="POST" class="small-box-footer" onsubmit="return confirm('Are you sure you want to delete all queues?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete All Queues</button>
+                            <button type="submit" class="btn btn-danger"> Hapus Antrian<i class=" fas fa-arrow-circle-right"></i></button>
                         </form>
+                        
                     </div>
+                    
                 </div>
+                
                 <div class="col-md-4">
                     <!-- small card -->
                     <div class="small-box bg-info">
@@ -135,7 +138,6 @@
                     </div>
                 </div>
             </div>
-            <h5 class="mt-4 mb-2">Info Antrian</h5>
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

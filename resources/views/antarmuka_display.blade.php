@@ -57,8 +57,7 @@
               <div class="flex-container">
                 <img src='/assets/logo/1718809145.png' alt="Logo" height="110" class="p-2">
                 <div class="nav-link align-items-center">
-                  <h1 class="display-4"><b>{{$data->name}}</b></h1>
-                  <h5>{{$data->name}}</h5>
+                  <h1 class="display-4"><b>{{ $data->name }}</b></h1>
                 </div>
               </div>
             </li>
@@ -105,7 +104,7 @@
     </div>
   </div>
   <div class="footer" style="background-color: {{$data->header_color}}!important; color: {{$data->text_color}}!important;">
-    <marquee>{{$data->running_text}}</marquee>
+    <marquee>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio reprehenderit laborum quam possimus cumque ad culpa dolorem asperiores dignissimos excepturi.</marquee>
   </div>
 
   <!-- Include necessary JS libraries -->
@@ -186,8 +185,9 @@
         },
         dataType: "json",
         success: function (data) {
-          alert('Berhasil mengambil antrian');
           console.log(data);
+
+          window.location.href = '/info-antrian-user/' + data.id;
         },
         error: function (xhr, status, error) {
           console.error("Error:", xhr.responseText);

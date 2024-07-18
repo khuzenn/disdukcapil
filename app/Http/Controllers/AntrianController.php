@@ -11,6 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Setting;
+use Carbon\Carbon;
 
 class AntrianController extends Controller
 {
@@ -43,15 +44,17 @@ class AntrianController extends Controller
             'tanggal' => now()->toDateString()
         ]);
 
-        return response()->json($antrian);
+        return response()->json([$antrian,'id' => $antrian->id]);
     }
 
-    public function InfoAntrianUser()
+    public function InfoAntrianUser($id)
     {
+        $antrian = Antrian::findOrFail($id);
         $data = Outlet::first();
         $lokets = Loket::all();
+        $tanggalHariIni = Carbon::now()->format('d F Y');
 
-        return view('/info_antrian_user', compact('data', 'lokets'));
+        return view('/info_antrian_user', compact('data', 'lokets','antrian','tanggalHariIni'));
     }
 
     public function antrianAktif()

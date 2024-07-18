@@ -95,14 +95,18 @@
         </div>
         <div class="card-body">
           <div class="text-center">
-            <h3 class="text-center" style="font-weight: bold;">Pelayanan KK</h3>
-            <h5 class="text-center">Nomor Antrian Anda :</h5>
+            <h3 class="text-center" style="font-weight: bold;">{{ $antrian->jenis_antrian }}</h3>
+            <h5 class="text-center">Nomor Antrian Anda : </h5>
             <div class="text-center">
               <div class="border border-dark d-inline-block p-2 my-3">
-                <h1 class="text-center font-weight-bold">A001</h1>
+                @php
+                $formatted_nomor_antrian = $antrian ? $antrian->purpose->kode . str_pad($antrian->nomor_antrian, 3, '0', STR_PAD_LEFT) : '-';
+                @endphp
+                <h1 class="text-center font-weight-bold">{{ $formatted_nomor_antrian }}</h1>
+                <h3 class="text-center" style="font-weight: bold;">Menuju Loket: {{ $antrian->loket->nomor }}</h3>
               </div>
             </div>
-            <p class="text-center">SILAHKAN MENUNGGU NOMOR ANTRIAN DIPANGGIL <br> NOMOR INI HANYA BERLAKU PADA HARI DICETAK <br> SELASA, 16 JULI 2024</p>
+            <p class="text-center">SILAHKAN MENUNGGU NOMOR ANTRIAN DIPANGGIL <br> NOMOR INI HANYA BERLAKU PADA HARI DICETAK <br>{{ $tanggalHariIni }}</p</p>
             <h4 class="text-center font-weight-bold">Terima Kasih Anda Telah Tertib</h4>
           </div>
         </div>
@@ -175,32 +179,6 @@
   </script>
 
   <script>
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
-    function ambilAntrian(event, id_antrian) {
-      event.preventDefault();
-      $.ajax({
-        url: "create-antrian",
-        method: "post",
-        data: {
-          _token: '{{ csrf_token() }}',
-          id_antrian: id_antrian
-        },
-        dataType: "json",
-        success: function (data) {
-          alert('Berhasil mengambil antrian');
-          console.log(data);
-        },
-        error: function (xhr, status, error) {
-          console.error("Error:", xhr.responseText);
-          alert('Gagal mengambil antrian! Silahkan coba lagi');
-        }
-      });
-    }
   </script>
 </body>
 </html>

@@ -37,7 +37,9 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/display-antrian', [DisplayAntrianController::class, 'index'])->name('display-antrian');
     Route::get('/antarmuka-display', [AntrianController::class, 'index'])->name('antarmuka-display');
-    Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('create-antrian');
+    Route::post('/create-antrian', [AntrianController::class, 'createAntrian'])->name('antrian.create');
+    Route::get('/info-antrian-user/{id}', [AntrianController::class, 'InfoAntrianUser'])->name('antrian.info');
+    Route::get('/antrian/{id}', [AntrianController::class, 'show'])->name('antrian.show');
 });
 
 });
