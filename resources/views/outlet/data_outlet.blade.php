@@ -31,7 +31,7 @@
               </script>
           @endif
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
 
     <!-- Main content -->

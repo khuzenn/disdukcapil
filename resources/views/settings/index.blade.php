@@ -27,30 +27,26 @@
           <div class="col-12">
             <div class="container">
                 <h1>Manage Box Settings</h1>
-            
                 @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
+                  <div class="alert alert-success">
+                      {{ session('success') }}
+                  </div>
                 @endif
-            
                 <form action="{{ route('admin.create-box') }}" method="POST">
                     @csrf
-            
                     @foreach(range(1, 4) as $box)
-                        <div class="form-group">
-                            <label for="box_{{ $box }}">Box {{ $box }} Loket</label>
-                            <select name="box_{{ $box }}" id="box_{{ $box }}" class="form-control">
-                                <option value="">Select Loket</option>
-                                @foreach($lokets as $loket)
-                                    <option value="{{ $loket->id }}" {{ isset($settings['box_' . $box]) && $settings['box_' . $box]->loket_id == $loket->id ? 'selected' : '' }}>
-                                        {{ $loket->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                      <div class="form-group">
+                          <label for="box_{{ $box }}">Box {{ $box }} Loket</label>
+                          <select name="box_{{ $box }}" id="box_{{ $box }}" class="form-control">
+                              <option value="">Select Loket</option>
+                              @foreach($lokets as $loket)
+                                  <option value="{{ $loket->id }}" {{ isset($settings['box_' . $box]) && $settings['box_' . $box]->loket_id == $loket->id ? 'selected' : '' }}>
+                                      {{ $loket->name }}
+                                  </option>
+                              @endforeach
+                          </select>
+                      </div>
                     @endforeach
-            
                     <button type="submit" class="btn btn-primary">Save Settings</button>
                 </form>
             </div>

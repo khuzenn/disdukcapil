@@ -97,16 +97,15 @@
                         <div class="icon">
                             <i class="fas fa-bookmark"></i>
                         </div>
-                        <form action="delete-all"  method="POST" class="small-box-footer" onsubmit="return confirm('Are you sure you want to delete all queues?');">
+                        <form action="delete-all" method="POST" class="small-box-footer py-0" onsubmit="return confirm('Are you sure you want to delete all queues?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger"> Hapus Antrian<i class=" fas fa-arrow-circle-right"></i></button>
+                            <button type="submit" class="btn btn-sm text-white small-box-footer">
+                                Hapus Antrian <i class="fas fa-arrow-circle-right"></i>
+                            </button>
                         </form>
-                        
                     </div>
-                    
                 </div>
-                
                 <div class="col-md-4">
                     <!-- small card -->
                     <div class="small-box bg-info">
@@ -138,10 +137,8 @@
                     </div>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
-    <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
 
 @include('components.footer')
